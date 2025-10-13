@@ -1,85 +1,92 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from "vue";
+
+const clima = ref(null);
+const errorMsg = ref("");
+
+const myAPIKey = "8ba418c512314911b0a200932251210";
+
+//Función para obtener clima
+function obtenerClima(lat = null, lon = null){
+
+  //armo la URL
+  const climaURL = new URL("https://api.weatherapi.com/v1/current.json");
+  
+  //parámetros
+  climaURL.searchParams.append("key", myAPIKey);    
+  climaURL.searchParams.append("lang", "es");
+
+  //Si están las coordenadas coordenadas, uso lat y lon, sino uso la ciudad por defecto
+  if (lat !== null && lon !== null) {
+    climaURL.searchParams.append("q", `${lat},${lon}`);
+  } else {
+    climaURL.searchParams.append("q", "Buenos Aires");
+  }
+
+  //Configuracion de la request
+  const myHeaders = {
+      "Authorization": myAPIKey, //envio la clave de autorización
+      "Content-Type": "application/json", //declaro el tipo de contenido
+      "Accept": "application/json" //declaro el tipo de contenido que acepto en la respuesta
+  }
+
+  const myRequestParams = {
+    method: "GET",
+    headers: myHeaders
+  };
+
+  fetch(climaURL, myRequestParams)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log("Datos del clima actual:", data);
+    clima.value = data; // guardo los datos en la variable reactiva
+  })
+   //manejo de error
+  .catch(error => {
+    console.error("Ocurrió un error:", error);
+    errorMsg.value = "No se pudo obtener el clima";
+  });
+}
+
+//Intentamos obtener la ubicación actual del usuario usando la API de geolocalización del navegador
+navigator.geolocation.getCurrentPosition(
+  
+  //Se ejecuta si el usuario permite compartir su ubicación
+  (position) => {
+    const lat = position.coords.latitude; 
+    const lon = position.coords.longitude;
+
+    obtenerClima(lat, lon);//llamo a la función con coordenadas
+  },
+
+  //Se ejecuta si hay un error o el usuario no permite compartir ubicación
+  (error) => {
+    console.error("No se pudo obtener la ubicación:", error);
+
+    obtenerClima(); // llamo a la función sin coordenadas y usa la ciudad por defecto
+  }
+);
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+ <div v-if="clima">
+    <h2>{{ clima.location.name }}</h2>
+    <p>{{ clima.current.condition.text }}</p>
+    <p>🌡️ {{ clima.current.temp_c }}°C</p>
+    <img :src="clima.current.condition.icon" :alt="clima.current.condition.text">
+  </div>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div v-else>
+    <p>Cargando clima...</p>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
