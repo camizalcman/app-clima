@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from "vue";
+import Vestimenta from './components/Vestimenta.vue'
 
 const clima = ref(null);
 const errorMsg = ref("");
@@ -75,18 +76,45 @@ navigator.geolocation.getCurrentPosition(
 </script>
 
 <template>
- <div v-if="clima">
-    <h2>{{ clima.location.name }}</h2>
-    <p>{{ clima.current.condition.text }}</p>
-    <p>🌡️ {{ clima.current.temp_c }}°C</p>
-    <img :src="clima.current.condition.icon" :alt="clima.current.condition.text">
-  </div>
+  <div class="w100">
+    <div class="w100 vh50">
+      <div v-if="clima">
+          <h2>{{ clima.location.localtime }}</h2>
+          <h2>{{ clima.location.name }}</h2>
+          <p>{{ clima.current.condition.text }}</p>
+          <p>🌡️ {{ clima.current.temp_c }}°C</p>
+          <img :src="clima.current.condition.icon" :alt="clima.current.condition.text">
+          <p>Humedad: {{ clima.current.humidity }}%</p>
+          <p>Viento: {{ clima.current.wind_kph }} km/h</p>
+        </div>
 
-  <div v-else>
-    <p>Cargando clima...</p>
+        <div v-else>
+          <p>Cargando clima...</p>
+        </div>
+    </div>
+    <div class="w100 vh50 df">
+        <div class="w33">Vestimenta<Vestimenta :clima="clima" /></div>
+        <div class="w33">Actividades</div>
+        <div class="w33">Precauciones</div>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.w100{
+  width: 100%;
+}
+.w33{
+  width: 33%;
+}
+.vh50{
+  height: 50vh;
+}
+.bordeRojo{
+  border: 2px solid red;
+}
+.df{
+  display: flex;
+}
 
 </style>
