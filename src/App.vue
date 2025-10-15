@@ -1,6 +1,13 @@
 <script setup>
 import { ref } from "vue";
+import { computed } from 'vue'
 import Vestimenta from './components/Vestimenta.vue'
+import Actividades from './components/Actividades.vue'
+
+import frio from '@/assets/img/frio.jpg'
+import templado from '@/assets/img/templado.jpg'
+import soleado from '@/assets/img/soleado.jpg'
+import lluvia from '@/assets/img/lluvia.jpg'
 
 const clima = ref(null);
 const errorMsg = ref("");
@@ -73,10 +80,30 @@ navigator.geolocation.getCurrentPosition(
   }
 );
 
+//Selección de fondos
+const fondoActual = computed(() => {
+  if (!clima.value) return soleado
+
+  const temp = clima.value.current.temp_c
+  const lluvia = clima.value.current.precip_mm
+  const textoClima = clima.value.current.condition.text.toLowerCase()
+  const hayLluvia =
+    lluvia > 0 ||
+    textoClima.includes("lluvia") ||
+    textoClima.includes("chubasco") ||
+    textoClima.includes("tormenta") ||
+    textoClima.includes("llovizna")
+
+  if (hayLluvia) return lluvia
+  if (temp < 15) return frio
+  else if (temp < 25) return templado
+  else return soleado
+})
+
 </script>
 
 <template>
-  <div class="w100">
+  <div class="w100 fondo" :style="{ backgroundImage: `url(${fondoActual})` }">
     <div class="w100 vh50">
       <div v-if="clima">
           <h2>{{ clima.location.localtime }}</h2>
@@ -86,6 +113,7 @@ navigator.geolocation.getCurrentPosition(
           <img :src="clima.current.condition.icon" :alt="clima.current.condition.text">
           <p>Humedad: {{ clima.current.humidity }}%</p>
           <p>Viento: {{ clima.current.wind_kph }} km/h</p>
+          <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
         </div>
 
         <div v-else>
@@ -93,9 +121,9 @@ navigator.geolocation.getCurrentPosition(
         </div>
     </div>
     <div class="w100 vh50 df">
-        <div class="w33">Vestimenta<Vestimenta :clima="clima" /></div>
-        <div class="w33">Actividades</div>
-        <div class="w33">Precauciones</div>
+        <div class="w33 margin"><Vestimenta :clima="clima" /></div>
+        <div class="w33 margin"><Actividades :clima="clima" /></div>
+        <div class="w33 margin">Precauciones</div>
     </div>
   </div>
 </template>
@@ -115,6 +143,18 @@ navigator.geolocation.getCurrentPosition(
 }
 .df{
   display: flex;
+}
+
+.margin{
+  margin: 1em;
+}
+
+.fondo{
+  background-size: cover;      
+  background-position: center;  
+  background-repeat: no-repeat; 
+  width: 100vw;                 
+  height: 100vh;            
 }
 
 </style>
