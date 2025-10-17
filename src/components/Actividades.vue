@@ -66,8 +66,8 @@ const actividadesActual = computed(()=>{
       textoClima.includes("tormenta") ||
       textoClima.includes("llovizna")
 
-    if (hayLluvia > 0) {
-      resultado = [actLluvia]
+    if (hayLluvia) {
+      resultado = actLluvia
     }
 
     return resultado

@@ -8,6 +8,7 @@ import frio from '@/assets/img/frio.jpg'
 import templado from '@/assets/img/templado.jpg'
 import soleado from '@/assets/img/soleado.jpg'
 import lluvia from '@/assets/img/lluvia.jpg'
+import Precauciones from "./components/Precauciones.vue";
 
 const clima = ref(null);
 const errorMsg = ref("");
@@ -66,10 +67,9 @@ navigator.geolocation.getCurrentPosition(
   
   //Se ejecuta si el usuario permite compartir su ubicación
   (position) => {
-    const lat = position.coords.latitude; 
-    const lon = position.coords.longitude;
-
-    obtenerClima(lat, lon);//llamo a la función con coordenadas
+    const { latitude, longitude, accuracy } = position.coords;
+    
+    obtenerClima(latitude, longitude);//llamo a la función con coordenadas
   },
 
   //Se ejecuta si hay un error o el usuario no permite compartir ubicación
@@ -77,6 +77,11 @@ navigator.geolocation.getCurrentPosition(
     console.error("No se pudo obtener la ubicación:", error);
 
     obtenerClima(); // llamo a la función sin coordenadas y usa la ciudad por defecto
+  },
+  {
+    enableHighAccuracy: true, //usa GPS si está disponible
+    timeout: 10000,           //espera máximo 10 segundos
+    maximumAge: 0             //no usar posición vieja en caché
   }
 );
 
@@ -85,10 +90,10 @@ const fondoActual = computed(() => {
   if (!clima.value) return soleado
 
   const temp = clima.value.current.temp_c
-  const lluvia = clima.value.current.precip_mm
+  const precip = clima.value.current.precip_mm
   const textoClima = clima.value.current.condition.text.toLowerCase()
   const hayLluvia =
-    lluvia > 0 ||
+    precip > 0 ||
     textoClima.includes("lluvia") ||
     textoClima.includes("chubasco") ||
     textoClima.includes("tormenta") ||
@@ -123,7 +128,7 @@ const fondoActual = computed(() => {
     <div class="w100 vh50 df">
         <div class="w33 margin"><Vestimenta :clima="clima" /></div>
         <div class="w33 margin"><Actividades :clima="clima" /></div>
-        <div class="w33 margin">Precauciones</div>
+        <div class="w33 margin"><Precauciones :clima="clima" /></div>
     </div>
   </div>
 </template>
