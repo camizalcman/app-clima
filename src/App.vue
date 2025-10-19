@@ -108,58 +108,88 @@ const fondoActual = computed(() => {
 </script>
 
 <template>
-  <div class="w100 fondo" :style="{ backgroundImage: `url(${fondoActual})` }">
-    <div class="w100 vh50">
-      <div v-if="clima">
-          <h2>{{ clima.location.localtime }}</h2>
-          <h2>{{ clima.location.name }}</h2>
-          <p>{{ clima.current.condition.text }}</p>
-          <p>🌡️ {{ clima.current.temp_c }}°C</p>
-          <img :src="clima.current.condition.icon" :alt="clima.current.condition.text">
-          <p>Humedad: {{ clima.current.humidity }}%</p>
-          <p>Viento: {{ clima.current.wind_kph }} km/h</p>
-          <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
-        </div>
+  <div class="fondo" :style="{ backgroundImage: `url(${fondoActual})` }">
+    <div class="grid-layout">
+      
+      <div class="item1 estilo-item">
+        <div v-if="clima">
+            <h2>{{ clima.location.localtime }}</h2>
+            <h2>{{ clima.location.name }}</h2>
+            <p>{{ clima.current.condition.text }}</p>
+            <p>🌡️ {{ clima.current.temp_c }}°C</p>
+            <img :src="clima.current.condition.icon" :alt="clima.current.condition.text">
+            <p>Humedad: {{ clima.current.humidity }}%</p>
+            <p>Viento: {{ clima.current.wind_kph }} km/h</p>
+            <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
+          </div>
 
-        <div v-else>
-          <p>Cargando clima...</p>
-        </div>
-    </div>
-    <div class="w100 vh50 df">
-        <div class="w33 margin"><Vestimenta :clima="clima" /></div>
-        <div class="w33 margin"><Actividades :clima="clima" /></div>
-        <div class="w33 margin"><Precauciones :clima="clima" /></div>
+          <div v-else>
+            <p>Cargando clima...</p>
+          </div>
+      </div>
+
+      <div class="item2 estilo-item"></div>
+
+      <div class="cajas">
+        <div class="item3 estilo-item"><Vestimenta :clima="clima" /></div>
+        <div class="item3 estilo-item"><Actividades :clima="clima" /></div>
+        <div class="item3 estilo-item"><Precauciones :clima="clima" /></div>
+      </div>
+
     </div>
   </div>
 </template>
 
 <style scoped>
-.w100{
+.fondo {
   width: 100%;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;            
+  justify-content: center;   
+  align-items: center;       
 }
-.w33{
-  width: 33%;
+
+.grid-layout{
+  display: grid;
+  width: 96%;
+  margin: 0 auto;
+  grid-template-columns: repeat(3, 1fr); 
+  grid-template-rows: repeat(2, 1fr); 
+  gap: 1em;
 }
-.vh50{
-  height: 50vh;
+
+.item1{
+  grid-column: 1 / span 2; 
+  grid-row: 1;
 }
-.bordeRojo{
-  border: 2px solid red;
+
+.item2 {
+  grid-column: 3; 
+  grid-row: 1;
 }
-.df{
+
+.cajas{
+  grid-column: 1 / span 3; 
   display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  margin-top: 10px;
 }
 
-.margin{
-  margin: 1em;
+.estilo-item{
+  background-color: rgba(232, 243, 242, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 2em;
+  border-radius: 1em;
+  color: rgb(23, 23, 23);
 }
 
-.fondo{
-  background-size: cover;      
-  background-position: center;  
-  background-repeat: no-repeat; 
-  width: 100vw;                 
-  height: 100vh;            
+.item3{
+  flex: 1;
 }
+
 
 </style>

@@ -123,11 +123,4 @@ const ropaActual = computed(()=>{
   flex-wrap: wrap;
 }
 
-.caja{
-  background-color: rgba(232, 243, 242, 0.4);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 2em;
-  border-radius: 1em;
-}
 </style>
