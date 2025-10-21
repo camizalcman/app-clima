@@ -42,9 +42,9 @@ const ropaTemplado = [
   { prenda: "Remera manga corta", img: remeraMC },
   { prenda: "Buzo liviano", img: buzo },
   { prenda: "Jean", img: jean },
-  { prenda: "Campera fina", img: camperaFina },
+  /*{ prenda: "Campera fina", img: camperaFina },
   { prenda: "Zapatillas", img: zapatillas },
-  { prenda: "Chaleco", img: chaleco },
+  { prenda: "Chaleco", img: chaleco },*/
 ];
 
 const ropaCalor = [

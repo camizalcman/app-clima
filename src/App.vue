@@ -124,6 +124,7 @@ const fondoActual = computed(() => {
           </div>
 
           <div v-else>
+            <img src="/src/assets/img/sol.png" alt="sol" width="30em" height="30em">
             <p>Cargando clima...</p>
           </div>
       </div>
@@ -148,16 +149,20 @@ const fondoActual = computed(() => {
   background-position: center;
   display: flex;            
   justify-content: center;   
-  align-items: center;       
+  align-items: center; 
+  overflow: hidden;      
 }
 
 .grid-layout{
   display: grid;
   width: 96%;
-  margin: 0 auto;
+  min-height: 90vh;
+  margin: 2em auto;
   grid-template-columns: repeat(3, 1fr); 
-  grid-template-rows: repeat(2, 1fr); 
+  grid-template-rows: auto auto;
   gap: 1em;
+  max-width: 1200px;
+  box-sizing: border-box;
 }
 
 .item1{
@@ -176,13 +181,14 @@ const fondoActual = computed(() => {
   justify-content: space-between;
   gap: 1em;
   margin-top: 10px;
+  flex-wrap: wrap;
 }
 
 .estilo-item{
   background-color: rgba(232, 243, 242, 0.5);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 2em;
+  padding: 1em;
   border-radius: 1em;
   color: rgb(23, 23, 23);
 }
