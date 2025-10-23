@@ -1,66 +1,27 @@
 <script setup>
-//IMPORTS
-import bufanda from '@/assets/img/bufanda.png'
-import guantes from '@/assets/img/guantes.png'
-import gorro from '@/assets/img/gorro.png'
-import sweater from '@/assets/img/sweater.png'
-import remeraML from '@/assets/img/remeraML.png'
-import campera from '@/assets/img/campera.png'
-import remeraMC from '@/assets/img/remeraMC.png'
-import buzo from '@/assets/img/buzo.png'
-import jean from '@/assets/img/jean.png'
-import camperaFina from '@/assets/img/camperaFina.png'
-import zapatillas from '@/assets/img/zapatillas.png'
-import chaleco from '@/assets/img/chaleco.png'
-import short from '@/assets/img/short.png'
-import musculosa from '@/assets/img/musculosa.png'
-import gorra from '@/assets/img/gorra.png'
-import sandalias from '@/assets/img/sandalias.png'
-import vestido from '@/assets/img/vestido.png'
-import anteojos from '@/assets/img/anteojos.png'
-import piloto from '@/assets/img/piloto.png'
-import botasLluvia from '@/assets/img/botasLluvia.png'
-import paraguas from '@/assets/img/paraguas.png'
-
+import ropa from '@/data/ropa.json'
 import { computed } from 'vue'
+
+//Convertir las rutas de imagen en URLs reales
+const procesarRopa = (lista) => {
+  return lista.map(item => ({
+    ...item,
+    //copia todas las propiedades del objeto original y sobrescribe la propiedad img con la URL real de la imagen
+    img: new URL(item.img.replace('@/', '/src/'), import.meta.url).href
+  }))
+}
+
+const ropaFrio = procesarRopa(ropa.frio)
+const ropaTemplado = procesarRopa(ropa.templado)
+const ropaCalor = procesarRopa(ropa.calor)
+const ropaLluvia = procesarRopa(ropa.lluvia)
 
 //PROPS
 const props = defineProps({
   clima:Object
 })
 
-const ropaFrio = [
-  { prenda: "Bufanda", img: bufanda },
-  { prenda: "Guantes", img: guantes },
-  { prenda: "Gorro", img: gorro },
-  { prenda: "Sweater", img: sweater },
-  { prenda: "Remera manga larga", img: remeraML },
-  { prenda: "Campera", img: campera },
-];
 
-const ropaTemplado = [
-  { prenda: "Remera manga corta", img: remeraMC },
-  { prenda: "Buzo liviano", img: buzo },
-  { prenda: "Jean", img: jean },
-  /*{ prenda: "Campera fina", img: camperaFina },
-  { prenda: "Zapatillas", img: zapatillas },
-  { prenda: "Chaleco", img: chaleco },*/
-];
-
-const ropaCalor = [
-  { prenda: "Short", img: short },
-  { prenda: "Musculosa", img: musculosa },
-  { prenda: "Gorra", img: gorra },
-  { prenda: "Sandalias", img: sandalias },
-  { prenda: "Vestido", img: vestido },
-  { prenda: "Anteojos de sol", img: anteojos }
-];
-
-const ropaLluvia = [
-  { prenda: "Piloto", img: piloto },
-  { prenda: "Botas de lluvia", img: botasLluvia },
-  { prenda: "Paraguas", img: paraguas }
-]
 
 //computed para definir la vestimenta a mostrar
 const ropaActual = computed(()=>{

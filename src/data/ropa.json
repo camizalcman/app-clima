@@ -1,0 +1,31 @@
+{
+  "frio": [
+    { "prenda": "Bufanda", "img": "@/assets/img/bufanda.png" },
+    { "prenda": "Guantes", "img": "@/assets/img/guantes.png" },
+    { "prenda": "Gorro", "img": "@/assets/img/gorro.png" },
+    { "prenda": "Sweater", "img": "@/assets/img/sweater.png" },
+    { "prenda": "Remera manga larga", "img": "@/assets/img/remeraML.png" },
+    { "prenda": "Campera", "img": "@/assets/img/campera.png" }
+  ],
+  "templado": [
+    { "prenda": "Remera manga corta", "img": "@/assets/img/remeraMC.png" },
+    { "prenda": "Buzo liviano", "img": "@/assets/img/buzo.png" },
+    { "prenda": "Jean", "img": "@/assets/img/jean.png" },
+    { "prenda": "Campera fina", "img": "@/assets/img/camperaFina.png" },
+    { "prenda": "Zapatillas", "img": "@/assets/img/zapatillas.png" },
+    { "prenda": "Chaleco", "img": "@/assets/img/chaleco.png" }
+  ],
+  "calor": [
+    { "prenda": "Short", "img": "@/assets/img/short.png" },
+    { "prenda": "Musculosa", "img": "@/assets/img/musculosa.png" },
+    { "prenda": "Gorra", "img": "@/assets/img/gorra.png" },
+    { "prenda": "Sandalias", "img": "@/assets/img/sandalias.png" },
+    { "prenda": "Vestido", "img": "@/assets/img/vestido.png" },
+    { "prenda": "Anteojos de sol", "img": "@/assets/img/anteojos.png" }
+  ],
+  "lluvia": [
+    { "prenda": "Piloto", "img": "@/assets/img/piloto.png" },
+    { "prenda": "Botas de lluvia", "img": "@/assets/img/botasLluvia.png" },
+    { "prenda": "Paraguas", "img": "@/assets/img/paraguas.png" }
+  ]
+}
