@@ -58,8 +58,8 @@ const ropaActual = computed(()=>{
   <div class="caja">
     <h2>Vestimenta recomendada</h2>
     <div class="contenedor">
-      <div v-for="(item, index) in ropaActual" :key="index" class="item">
-        <img :src="item.img" :alt="item.prenda" width="80" height="80"/>
+      <div v-for="item in ropaActual.slice(0,3)" :key="index" class="item">
+        <img :src="item.img" :alt="item.prenda" width="60" height="60"/>
         <p>{{ item.prenda }}</p>
       </div>
     </div>
@@ -77,11 +77,26 @@ const ropaActual = computed(()=>{
   justify-content: center;
   align-items: center;
   width: 33%;
+  transition: transform 0.3s ease;
+}
+
+.item:hover{
+  transform: scale(1.1);
 }
 
 .contenedor{
   display: flex;
   flex-wrap: wrap;
+} 
+
+.caja{
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+h2{
+  font-weight: 500;
+  font-size: 1.4em;
+  margin-bottom: 1em
 }
 
 </style>

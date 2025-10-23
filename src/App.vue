@@ -113,18 +113,18 @@ const fondoActual = computed(() => {
       
       <div class="item1 estilo-item">
         <div v-if="clima">
-            <h2>{{ clima.location.localtime }}</h2>
+            <p>{{ clima.location.localtime }}</p>
             <h2>{{ clima.location.name }}</h2>
-            <p>{{ clima.current.condition.text }}</p>
             <p>🌡️ {{ clima.current.temp_c }}°C</p>
-            <img :src="clima.current.condition.icon" :alt="clima.current.condition.text">
+            <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="90" height="90">
+            <p>{{ clima.current.condition.text }}</p>
             <p>Humedad: {{ clima.current.humidity }}%</p>
             <p>Viento: {{ clima.current.wind_kph }} km/h</p>
             <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
           </div>
 
           <div v-else>
-            <img src="/src/assets/img/sol.png" alt="sol" width="30em" height="30em">
+            <img src="/src/assets/img/sol.png" alt="sol" width="40" height="40">
             <p>Cargando clima...</p>
           </div>
       </div>
@@ -185,12 +185,13 @@ const fondoActual = computed(() => {
 }
 
 .estilo-item{
-  background-color: rgba(232, 243, 242, 0.5);
+  background-color: rgba(245, 245, 245, 0.5);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(10px);
   padding: 1em;
   border-radius: 1em;
   color: rgb(23, 23, 23);
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 .item3{

@@ -55,7 +55,7 @@ const precActual = computed(()=>{
         <h2>Precauciones</h2>
         <div class="contenedor">
             <div v-for="(item, index) in precActual" :key="index" class="item">
-                <img :src="item.img" :alt="item.precaucion" width="80" height="80"/>
+                <img :src="item.img" :alt="item.precaucion" width="60" height="60"/>
                 <p>{{ item.precaucion }}</p>
             </div>
         </div>
@@ -64,18 +64,31 @@ const precActual = computed(()=>{
 
 <style scoped>
 .bordeRojo{
-    border: 2px solid red;
+  border: 2px solid red;
 }
 .item{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 33%;
+  transition: transform 0.3s ease;
 }
+
+.item:hover{
+  transform: scale(1.1);
+} 
 
 .contenedor{
   display: flex;
   flex-wrap: wrap;
 }
 
+.caja{
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+h2{
+  font-weight: 500;
+  font-size: 1.4em;
+  margin-bottom: 1em
+}
 </style>

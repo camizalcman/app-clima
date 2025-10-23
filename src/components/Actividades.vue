@@ -34,7 +34,7 @@ const actTemplado = [
 
 const actCalor = [
   { actividad: "Ir a la playa", img: playa },
-  { actividad: "Nadar en la pileta", img: pileta },
+  { actividad: "Ir a la pileta", img: pileta },
   { actividad: "Tomar helado", img: helado },
 ]
 
@@ -79,7 +79,7 @@ const actividadesActual = computed(()=>{
         <h2>Actividades recomendadas</h2>
         <div class="contenedor">
             <div v-for="(item, index) in actividadesActual" :key="index" class="item">
-                <img :src="item.img" :alt="item.actividad" width="80" height="80"/>
+                <img :src="item.img" :alt="item.actividad" width="60" height="60"/>
                 <p>{{ item.actividad }}</p>
             </div>
         </div>
@@ -95,11 +95,26 @@ const actividadesActual = computed(()=>{
   justify-content: center;
   align-items: center;
   width: 33%;
+  transition: transform 0.3s ease;
+}
+
+.item:hover{
+  transform: scale(1.1);
 }
 
 .contenedor{
   display: flex;
   flex-wrap: wrap;
+}
+
+.caja{
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+h2{
+  font-weight: 500;
+  font-size: 1.4em;
+  margin-bottom: 1em
 }
 
 </style>
