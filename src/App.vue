@@ -108,7 +108,7 @@ const fondoActual = computed(() => {
 </script>
 
 <template>
-  <div class="fondo" :style="{ backgroundImage: `url(${fondoActual})` }">
+  <div class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(0,0,0,0.2)', backgroundBlendMode:'multiply' }">
     <div class="grid-layout">
       
       <div class="item1 estilo-item">
@@ -150,7 +150,8 @@ const fondoActual = computed(() => {
   display: flex;            
   justify-content: center;   
   align-items: center; 
-  overflow: hidden;      
+  overflow: hidden;
+  
 }
 
 .grid-layout{
@@ -167,7 +168,7 @@ const fondoActual = computed(() => {
 
 .item1{
   grid-column: 1 / span 2; 
-  grid-row: 1;
+  grid-row: 1; 
 }
 
 .item2 {
@@ -192,6 +193,7 @@ const fondoActual = computed(() => {
   border-radius: 1em;
   color: rgb(23, 23, 23);
   font-family: "Plus Jakarta Sans", sans-serif;
+  border: 2px solid white;
 }
 
 .item3{

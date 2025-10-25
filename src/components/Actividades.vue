@@ -39,7 +39,7 @@ const actCalor = [
 ]
 
 const actLluvia = [
-  { actividad: "Ver una película en casa", img: pelicula },
+  { actividad: "Ver una película", img: pelicula },
   { actividad: "Cocinar algo rico", img: cocinar },
   { actividad: "Jugar juegos de mesa", img: juegoDeMesa },
 ]
@@ -79,7 +79,7 @@ const actividadesActual = computed(()=>{
         <h2>Actividades recomendadas</h2>
         <div class="contenedor">
             <div v-for="(item, index) in actividadesActual" :key="index" class="item">
-                <img :src="item.img" :alt="item.actividad" width="60" height="60"/>
+                <img :src="item.img" :alt="item.actividad" width="50" height="50"/>
                 <p>{{ item.actividad }}</p>
             </div>
         </div>
@@ -89,22 +89,29 @@ const actividadesActual = computed(()=>{
 .bordeRojo{
     border: 2px solid red;
 }
+
 .item{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 33%;
+  text-align: center;
+  width: 31%;
   transition: transform 0.3s ease;
+  border: 2px solid rgb(94, 94, 94);
+  background-color: rgb(94, 94, 94,0.3);
+  border-radius: 10px;
+  padding: 0.5em;
 }
 
 .item:hover{
-  transform: scale(1.1);
+  transform: scale(1.06);
 }
 
 .contenedor{
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .caja{
@@ -117,4 +124,8 @@ h2{
   margin-bottom: 1em
 }
 
+p{
+  font-weight: 500;
+  font-size: 0.9em;
+}
 </style>

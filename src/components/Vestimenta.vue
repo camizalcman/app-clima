@@ -59,8 +59,8 @@ const ropaActual = computed(()=>{
     <h2>Vestimenta recomendada</h2>
     <div class="contenedor">
       <div v-for="item in ropaActual.slice(0,3)" :key="index" class="item">
-        <img :src="item.img" :alt="item.prenda" width="60" height="60"/>
-        <p>{{ item.prenda }}</p>
+        <div class="contImg"><img :src="item.img" :alt="item.prenda" width="50" height="50"/></div>
+        <div class="contTexto"><p>{{ item.prenda }}</p></div>
       </div>
     </div>
   </div>
@@ -71,22 +71,29 @@ const ropaActual = computed(()=>{
 .bordeRojo{
     border: 2px solid red;
 }
+
 .item{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 33%;
+  text-align: center;
+  width: 31%;
   transition: transform 0.3s ease;
+  border: 2px solid rgb(94, 94, 94);
+  background-color: rgb(94, 94, 94,0.3);
+  border-radius: 10px;
+  padding: 0.5em;
 }
 
 .item:hover{
-  transform: scale(1.1);
+  transform: scale(1.06);
 }
 
 .contenedor{
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 } 
 
 .caja{
@@ -98,5 +105,13 @@ h2{
   font-size: 1.4em;
   margin-bottom: 1em
 }
+
+p{
+  font-weight: 500;
+  font-size: 0.9em;
+  line-height: 1.2em;
+  margin-top: 0.4em;
+}
+
 
 </style>
