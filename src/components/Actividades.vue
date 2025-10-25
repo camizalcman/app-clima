@@ -13,6 +13,8 @@ import pelicula from '@/assets/img/pelicula.png'
 import cocinar from '@/assets/img/cocinar.png'
 import juegoDeMesa from '@/assets/img/juegoDeMesa.png'
 
+import '../assets/styles.css'
+
 import { computed } from 'vue'
 
 //PROPS
@@ -27,7 +29,7 @@ const actFrio = [
 ]
 
 const actTemplado = [
-  { actividad: "Hacer picnic", img: picnic },
+  { actividad: "Hacer picnic con amigos", img: picnic },
   { actividad: "Andar en bicicleta", img: bicicleta },
   { actividad: "Caminar al aire libre", img: caminar },
 ]
@@ -76,56 +78,15 @@ const actividadesActual = computed(()=>{
 </script>
 <template>
       <div class="caja">
-        <h2>Actividades recomendadas</h2>
+        <h2 class="tituloCaja">Actividades recomendadas</h2>
         <div class="contenedor">
             <div v-for="(item, index) in actividadesActual" :key="index" class="item">
                 <img :src="item.img" :alt="item.actividad" width="50" height="50"/>
-                <p>{{ item.actividad }}</p>
+                <p class="textoItem">{{ item.actividad }}</p>
             </div>
         </div>
     </div>
 </template>
 <style scoped>
-.bordeRojo{
-    border: 2px solid red;
-}
 
-.item{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 31%;
-  transition: transform 0.3s ease;
-  border: 2px solid rgb(94, 94, 94);
-  background-color: rgb(94, 94, 94,0.3);
-  border-radius: 10px;
-  padding: 0.5em;
-}
-
-.item:hover{
-  transform: scale(1.06);
-}
-
-.contenedor{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.caja{
-  font-family: "Plus Jakarta Sans", sans-serif;
-}
-
-h2{
-  font-weight: 500;
-  font-size: 1.4em;
-  margin-bottom: 1em
-}
-
-p{
-  font-weight: 500;
-  font-size: 0.9em;
-}
 </style>

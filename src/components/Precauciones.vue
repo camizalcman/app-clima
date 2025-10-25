@@ -4,6 +4,7 @@ import temperatura from '@/assets/img/temperatura.png'
 import botellaAgua from '@/assets/img/botella-de-agua.png'
 import protector from '@/assets/img/protector-solar.png'
 import inundacion from '@/assets/img/inundacion.png'
+import '../assets/styles.css'
 
 import { computed } from 'vue'
 
@@ -52,50 +53,17 @@ const precActual = computed(()=>{
 </script>
 <template>
       <div class="caja">
-        <h2>Precauciones</h2>
+        <h2 class="tituloCaja">Precauciones</h2>
         <div class="contenedor">
-            <div v-for="(item, index) in precActual" :key="index" class="item">
+            <div v-for="(item, index) in precActual" :key="index" class="itemH">
                 <img :src="item.img" :alt="item.precaucion" width="50" height="50"/>
-                <p>{{ item.precaucion }}</p>
+                <p class="textoItem">{{ item.precaucion }}</p>
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-.bordeRojo{
-  border: 2px solid red;
-}
-.item{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  transition: transform 0.3s ease;
-}
 
-.item:hover{
-  transform: scale(1.06);
-} 
 
-.contenedor{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.caja{
-  font-family: "Plus Jakarta Sans", sans-serif;
-}
-
-h2{
-  font-weight: 500;
-  font-size: 1.4em;
-  margin-bottom: 1em
-}
-
-p{
-  font-weight: 500;
-  font-size: 0.9em;
-}
 </style>

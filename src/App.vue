@@ -3,12 +3,15 @@ import { ref } from "vue";
 import { computed } from 'vue'
 import Vestimenta from './components/Vestimenta.vue'
 import Actividades from './components/Actividades.vue'
+import PronosticoDiario from "./components/Pronostico-diario.vue";
 
 import frio from '@/assets/img/frio.jpg'
 import templado from '@/assets/img/templado.jpg'
 import soleado from '@/assets/img/soleado.jpg'
 import lluvia from '@/assets/img/lluvia.jpg'
 import Precauciones from "./components/Precauciones.vue";
+
+import './assets/styles.css'
 
 const clima = ref(null);
 const errorMsg = ref("");
@@ -18,7 +21,7 @@ const myAPIKey = "8ba418c512314911b0a200932251210";
 //Función para obtener clima
 function obtenerClima(lat = null, lon = null){
 
-  //armo la URL
+  //armo la URL para llamar a current.json
   const climaURL = new URL("https://api.weatherapi.com/v1/current.json");
   
   //parámetros
@@ -54,13 +57,58 @@ function obtenerClima(lat = null, lon = null){
   .then(data => {
     console.log("Datos del clima actual:", data);
     clima.value = data; // guardo los datos en la variable reactiva
-  })
-   //manejo de error
+  
+    //SEGUNDA LLAMADA - FORECAST.JSON
+    const forecastURL = new URL("https://api.weatherapi.com/v1/forecast.json");
+
+    forecastURL.searchParams.append("key", myAPIKey);
+    forecastURL.searchParams.append("lang", "es");
+    forecastURL.searchParams.append("days", 5);
+    forecastURL.searchParams.append("aqi", "no");
+    forecastURL.searchParams.append("alerts", "no");
+
+    if (lat !== null && lon !== null) {
+      forecastURL.searchParams.append("q", `${lat},${lon}`);
+    } else {
+      forecastURL.searchParams.append("q", "Buenos Aires");
+    }
+
+    return fetch(forecastURL, myRequestParams)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`Error HTTP: ${res.status} ${res.statusText}`);
+        }
+        return res.json();
+      })
+      .then(forecastData => {
+        //Informacion de temp por hora
+        const hoyHoras = forecastData.forecast.forecastday[0].hour.map(h => ({
+          hora: h.time,
+          temp: h.temp_c,
+          icon: h.condition.icon
+        }));
+        //Informacion de temp próximos días
+        const pronosticoDias = forecastData.forecast.forecastday.map(d => ({
+            dia: new Date(d.date).toLocaleDateString('es-AR', { weekday: 'long' }),
+            icon: d.day.condition.icon,
+            descripcion: d.day.condition.text,
+            tempMax: d.day.maxtemp_c,
+            tempMin: d.day.mintemp_c
+        }));
+
+        clima.value.forecast = {
+          horaPorHora: hoyHoras,
+          pronostico: pronosticoDias
+        };
+
+        console.log("Datos del pronóstico:", clima.value.forecast);
+    })
+
   .catch(error => {
     console.error("Ocurrió un error:", error);
     errorMsg.value = "No se pudo obtener el clima";
   });
-}
+})}
 
 //Intentamos obtener la ubicación actual del usuario usando la API de geolocalización del navegador
 navigator.geolocation.getCurrentPosition(
@@ -100,15 +148,19 @@ const fondoActual = computed(() => {
     textoClima.includes("llovizna")
 
   if (hayLluvia) return lluvia
-  if (temp < 15) return frio
-  else if (temp < 25) return templado
-  else return soleado
+  if (temp < 15) {
+    return frio;
+  } else if (temp < 25) {
+    return templado;
+  } else {
+    return soleado;
+  }
 })
 
 </script>
 
 <template>
-  <div class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(0,0,0,0.2)', backgroundBlendMode:'multiply' }">
+  <div class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(0,0,0,0.1)', backgroundBlendMode:'multiply' }">
     <div class="grid-layout">
       
       <div class="item1 estilo-item">
@@ -129,7 +181,7 @@ const fondoActual = computed(() => {
           </div>
       </div>
 
-      <div class="item2 estilo-item"></div>
+      <div class="item2 estilo-item"><PronosticoDiario :clima="clima" /></div>
 
       <div class="cajas">
         <div class="item3 estilo-item"><Vestimenta :clima="clima" /></div>
@@ -142,63 +194,6 @@ const fondoActual = computed(() => {
 </template>
 
 <style scoped>
-.fondo {
-  width: 100%;
-  min-height: 100vh;
-  background-size: cover;
-  background-position: center;
-  display: flex;            
-  justify-content: center;   
-  align-items: center; 
-  overflow: hidden;
-  
-}
-
-.grid-layout{
-  display: grid;
-  width: 96%;
-  min-height: 90vh;
-  margin: 2em auto;
-  grid-template-columns: repeat(3, 1fr); 
-  grid-template-rows: auto auto;
-  gap: 1em;
-  max-width: 1200px;
-  box-sizing: border-box;
-}
-
-.item1{
-  grid-column: 1 / span 2; 
-  grid-row: 1; 
-}
-
-.item2 {
-  grid-column: 3; 
-  grid-row: 1;
-}
-
-.cajas{
-  grid-column: 1 / span 3; 
-  display: flex;
-  justify-content: space-between;
-  gap: 1em;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-
-.estilo-item{
-  background-color: rgba(245, 245, 245, 0.5);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 1em;
-  border-radius: 1em;
-  color: rgb(23, 23, 23);
-  font-family: "Plus Jakarta Sans", sans-serif;
-  border: 2px solid white;
-}
-
-.item3{
-  flex: 1;
-}
 
 
 </style>

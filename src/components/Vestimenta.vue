@@ -1,6 +1,7 @@
 <script setup>
 import ropa from '@/data/ropa.json'
 import { computed } from 'vue'
+import '../assets/styles.css'
 
 //Convertir las rutas de imagen en URLs reales
 const procesarRopa = (lista) => {
@@ -56,11 +57,11 @@ const ropaActual = computed(()=>{
 
 <template>
   <div class="caja">
-    <h2>Vestimenta recomendada</h2>
+    <h2 class="tituloCaja">Vestimenta recomendada</h2>
     <div class="contenedor">
-      <div v-for="item in ropaActual.slice(0,3)" :key="index" class="item">
+      <div v-for="(item, index) in ropaActual.slice(0,3)" :key="index" class="item">
         <div class="contImg"><img :src="item.img" :alt="item.prenda" width="50" height="50"/></div>
-        <div class="contTexto"><p>{{ item.prenda }}</p></div>
+        <div class="contTexto"><p class="textoItem">{{ item.prenda }}</p></div>
       </div>
     </div>
   </div>
@@ -68,50 +69,7 @@ const ropaActual = computed(()=>{
 
 <style scoped>
 
-.bordeRojo{
-    border: 2px solid red;
-}
 
-.item{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 31%;
-  transition: transform 0.3s ease;
-  border: 2px solid rgb(94, 94, 94);
-  background-color: rgb(94, 94, 94,0.3);
-  border-radius: 10px;
-  padding: 0.5em;
-}
-
-.item:hover{
-  transform: scale(1.06);
-}
-
-.contenedor{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-} 
-
-.caja{
-  font-family: "Plus Jakarta Sans", sans-serif;
-}
-
-h2{
-  font-weight: 500;
-  font-size: 1.4em;
-  margin-bottom: 1em
-}
-
-p{
-  font-weight: 500;
-  font-size: 0.9em;
-  line-height: 1.2em;
-  margin-top: 0.4em;
-}
 
 
 </style>
