@@ -4,6 +4,7 @@ import { computed } from 'vue'
 import Vestimenta from './components/Vestimenta.vue'
 import Actividades from './components/Actividades.vue'
 import PronosticoDiario from "./components/Pronostico-diario.vue";
+import climaHorario from "./components/Clima-horario.vue";
 
 import frio from '@/assets/img/frio.jpg'
 import templado from '@/assets/img/templado.jpg'
@@ -63,7 +64,7 @@ function obtenerClima(lat = null, lon = null){
 
     forecastURL.searchParams.append("key", myAPIKey);
     forecastURL.searchParams.append("lang", "es");
-    forecastURL.searchParams.append("days", 5);
+    forecastURL.searchParams.append("days", 6);
     forecastURL.searchParams.append("aqi", "no");
     forecastURL.searchParams.append("alerts", "no");
 
@@ -83,12 +84,14 @@ function obtenerClima(lat = null, lon = null){
       .then(forecastData => {
         //Informacion de temp por hora
         const hoyHoras = forecastData.forecast.forecastday[0].hour.map(h => ({
-          hora: h.time,
+          hora: h.time.split(" ")[1],
           temp: h.temp_c,
           icon: h.condition.icon
         }));
         //Informacion de temp próximos días
-        const pronosticoDias = forecastData.forecast.forecastday.map(d => ({
+        const pronosticoDias = forecastData.forecast.forecastday
+        .slice(0, 5) 
+        .map(d => ({
             dia: new Date(d.date).toLocaleDateString('es-AR', { weekday: 'long' }),
             icon: d.day.condition.icon,
             descripcion: d.day.condition.text,
@@ -165,14 +168,22 @@ const fondoActual = computed(() => {
       
       <div class="item1 estilo-item">
         <div v-if="clima">
-            <p>{{ clima.location.localtime }}</p>
-            <h2>{{ clima.location.name }}</h2>
-            <p>🌡️ {{ clima.current.temp_c }}°C</p>
-            <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="90" height="90">
-            <p>{{ clima.current.condition.text }}</p>
-            <p>Humedad: {{ clima.current.humidity }}%</p>
-            <p>Viento: {{ clima.current.wind_kph }} km/h</p>
-            <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
+          <div class="df contClima">
+            <div>
+              <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="90" height="90">
+              <p>{{ clima.location.localtime }}</p>
+              <h2>{{ clima.location.name }}</h2>
+              <p>🌡️ {{ clima.current.temp_c }}°C</p>
+              <p>{{ clima.current.condition.text }}</p>
+            </div>
+
+            <div>
+              <p>Humedad: {{ clima.current.humidity }}%</p>
+              <p>Viento: {{ clima.current.wind_kph }} km/h</p>
+              <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
+            </div>
+          </div>    
+             <div><climaHorario :clima="clima" /></div>
           </div>
 
           <div v-else>
@@ -194,6 +205,8 @@ const fondoActual = computed(() => {
 </template>
 
 <style scoped>
-
+.contClima{
+  justify-content: space-between;
+}
 
 </style>
