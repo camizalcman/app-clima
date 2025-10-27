@@ -12,13 +12,12 @@
 
 .grid-layout{
   display: grid;
-  width: 96%;
+  width: 88%;
   min-height: 90vh;
   margin: 2em auto;
   grid-template-columns: repeat(3, 1fr); 
   grid-template-rows: auto auto;
   gap: 1em;
-  max-width: 1200px;
   box-sizing: border-box;
 }
 

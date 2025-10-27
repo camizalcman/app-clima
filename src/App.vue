@@ -57,6 +57,7 @@ function obtenerClima(lat = null, lon = null){
   })
   .then(data => {
     console.log("Datos del clima actual:", data);
+    
     clima.value = data; // guardo los datos en la variable reactiva
   
     //SEGUNDA LLAMADA - FORECAST.JSON
@@ -83,11 +84,14 @@ function obtenerClima(lat = null, lon = null){
       })
       .then(forecastData => {
         //Informacion de temp por hora
-        const hoyHoras = forecastData.forecast.forecastday[0].hour.map(h => ({
+        const hoyHoras = forecastData.forecast.forecastday[0].hour
+        .map(h => ({
           hora: h.time.split(" ")[1],
           temp: h.temp_c,
           icon: h.condition.icon
-        }));
+        }))
+           .filter((_, i) => i % 2 === 0);
+        
         //Informacion de temp próximos días
         const pronosticoDias = forecastData.forecast.forecastday
         .slice(0, 5) 

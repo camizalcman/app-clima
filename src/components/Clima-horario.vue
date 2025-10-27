@@ -21,7 +21,7 @@ const props = defineProps({
 <style scoped>
 .contenedorHoras{
   flex-wrap: wrap;
-  gap: 0.7em;
+  justify-content: space-between;
 }
 
 .hora{
