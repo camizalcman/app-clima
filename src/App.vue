@@ -5,6 +5,7 @@ import Vestimenta from './components/Vestimenta.vue'
 import Actividades from './components/Actividades.vue'
 import PronosticoDiario from "./components/Pronostico-diario.vue";
 import climaHorario from "./components/Clima-horario.vue";
+import InputUbi from "./components/InputUbi.vue";
 
 import frio from '@/assets/img/frio.jpg'
 import templado from '@/assets/img/templado.jpg'
@@ -13,6 +14,7 @@ import lluvia from '@/assets/img/lluvia.jpg'
 import Precauciones from "./components/Precauciones.vue";
 
 import './assets/styles.css'
+
 
 const clima = ref(null);
 const errorMsg = ref("");
@@ -175,9 +177,9 @@ const fondoActual = computed(() => {
           <div class="df contClima">
             <div>
               <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="90" height="90">
+              <p>{{ clima.current.temp_c }}°C</p>
               <p>{{ clima.location.localtime }}</p>
-              <h2>{{ clima.location.name }}</h2>
-              <p>🌡️ {{ clima.current.temp_c }}°C</p>
+              <h2 class="lugar">{{ clima.location.name }}</h2>
               <p>{{ clima.current.condition.text }}</p>
             </div>
 
@@ -185,6 +187,8 @@ const fondoActual = computed(() => {
               <p>Humedad: {{ clima.current.humidity }}%</p>
               <p>Viento: {{ clima.current.wind_kph }} km/h</p>
               <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
+              <p>UV: {{ clima.current.uv }} mm</p>
+              <p>Sensación térmica: {{ clima.current.feelslike_c }} mm</p>
             </div>
           </div>    
              <div><climaHorario :clima="clima" /></div>
@@ -196,7 +200,7 @@ const fondoActual = computed(() => {
           </div>
       </div>
 
-      <div class="item2 estilo-item"><PronosticoDiario :clima="clima" /></div>
+      <div class="item2 estilo-item"><InputUbi/><PronosticoDiario :clima="clima" /></div>
 
       <div class="cajas">
         <div class="item3 estilo-item"><Vestimenta :clima="clima" /></div>
@@ -212,5 +216,7 @@ const fondoActual = computed(() => {
 .contClima{
   justify-content: space-between;
 }
-
+.lugar{
+  font-weight: 600;
+}
 </style>

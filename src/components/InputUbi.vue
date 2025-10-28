@@ -8,7 +8,19 @@ const emit = defineEmits(['buscar-clima'])
 </script>
 <template>
     <div>
-        <label for="ubi">Ubicación:</label>
-        <input type="text" name="ubicacion" id="ubi" placeholder="Ingrese su ubicación ">
+        <input type="text" name="ubicacion" id="ubi" placeholder="Ingrese su ubicación">
+        <i class="fa-solid fa-magnifying-glass icono"></i>
     </div>
 </template>
+<style scoped>
+#ubi{
+    border-radius: 20px;
+    border-color: white;
+    padding: 0.5em;
+    width: 100%;
+    margin-bottom: 1.2em;
+}
+.icono{
+    color:black
+}
+</style>
