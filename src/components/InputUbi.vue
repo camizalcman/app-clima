@@ -15,10 +15,11 @@ const emit = defineEmits(['buscar-clima'])
 <style scoped>
 #ubi{
     border-radius: 20px;
-    border-color: white;
-    padding: 0.5em;
+    border: 2px;
+    padding: 0.8em;
     width: 100%;
-    margin-bottom: 1.2em;
+    margin-bottom: 2em;
+    font-family: "Plus Jakarta Sans", sans-serif;
 }
 .icono{
     color:black

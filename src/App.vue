@@ -176,11 +176,14 @@ const fondoActual = computed(() => {
         <div v-if="clima">
           <div class="df contClima">
             <div>
-              <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="90" height="90">
-              <p>{{ clima.current.temp_c }}°C</p>
-              <p>{{ clima.location.localtime }}</p>
               <h2 class="lugar">{{ clima.location.name }}</h2>
-              <p>{{ clima.current.condition.text }}</p>
+              <p>{{ clima.location.localtime }}</p>
+
+              <div class="df iconoTemp">
+                <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="100" height="100">
+                <h1 class="tempActual">{{ clima.current.temp_c }}°C</h1>
+              </div>
+                <p>{{ clima.current.condition.text }}</p>
             </div>
 
             <div>
@@ -191,7 +194,7 @@ const fondoActual = computed(() => {
               <p>Sensación térmica: {{ clima.current.feelslike_c }} mm</p>
             </div>
           </div>    
-             <div><climaHorario :clima="clima" /></div>
+             <div class="horarios"><climaHorario :clima="clima" /></div>
           </div>
 
           <div v-else>
@@ -218,5 +221,14 @@ const fondoActual = computed(() => {
 }
 .lugar{
   font-weight: 600;
+}
+.horarios{
+  margin-top: 1em;
+}
+.tempActual{
+  font-size: 3.4em;
+}
+.iconoTemp{
+  align-items: center;
 }
 </style>

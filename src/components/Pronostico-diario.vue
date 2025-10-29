@@ -36,7 +36,7 @@ const props = defineProps({
   justify-content: center;
   align-items: center;
   transition: transform 0.3s ease;
-  background-color: rgba(254, 254, 254, 0.7);
+  background-color: rgba(242, 242, 242, 0.7);
   border-radius: 10px;
   margin-right: 0.8em;
 }

@@ -41,12 +41,12 @@
 }
 
 .estilo-item{
-  background-color: rgba(245, 245, 245, 0.5);
+  background-color: rgba(245, 245, 245, 0.6);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(10px);
   padding: 1em;
   border-radius: 1em;
-  color: rgb(23, 23, 23);
+  color: rgb(29, 29, 29);
   font-family: "Plus Jakarta Sans", sans-serif;
   border: 2px solid white;
 }
@@ -67,7 +67,7 @@
   text-align: center;
   width: 31%;
   transition: transform 0.3s ease;
-  background-color: rgba(254, 254, 254, 0.7);
+  background-color: rgba(242, 242, 242, 0.7);
   border-radius: 10px;
   padding: 0.5em;
 }
