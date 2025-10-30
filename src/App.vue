@@ -176,13 +176,15 @@ const fondoActual = computed(() => {
         <div v-if="clima">
           <div class="df contClima">
             <div>
-              <h2 class="lugar">{{ clima.location.name }}</h2>
-              <p>{{ clima.location.localtime }}</p>
+              <h2 class="lugar">📍{{ clima.location.name }}</h2>
+              
+              <p class="fecha">{{new Date(clima.location.localtime).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}}, {{ clima.location.localtime.split(' ')[1] }}</p> 
 
               <div class="df iconoTemp">
-                <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="100" height="100">
+                <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="100" height="100" class="iconoClima">
                 <h1 class="tempActual">{{ clima.current.temp_c }}°C</h1>
               </div>
+                <p>Sensación térmica: {{ clima.current.feelslike_c }} °C</p>
                 <p>{{ clima.current.condition.text }}</p>
             </div>
 
@@ -191,7 +193,6 @@ const fondoActual = computed(() => {
               <p>Viento: {{ clima.current.wind_kph }} km/h</p>
               <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
               <p>UV: {{ clima.current.uv }} mm</p>
-              <p>Sensación térmica: {{ clima.current.feelslike_c }} mm</p>
             </div>
           </div>    
              <div class="horarios"><climaHorario :clima="clima" /></div>
@@ -231,4 +232,22 @@ const fondoActual = computed(() => {
 .iconoTemp{
   align-items: center;
 }
+
+.fecha{
+  margin-bottom: 1em;
+  font-size: 1em;
+}
+
+.iconoClima{
+
+animation: flotar 3s ease-in-out infinite;
+}
+
+@keyframes flotar {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+
 </style>

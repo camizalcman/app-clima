@@ -36,7 +36,8 @@ const props = defineProps({
   justify-content: center;
   align-items: center;
   transition: transform 0.3s ease;
-  background-color: rgba(242, 242, 242, 0.7);
+  background-color: rgba(235, 235, 235, 0.7);
+  border: 1px solid rgb(148, 148, 148);
   border-radius: 10px;
   margin-right: 0.8em;
 }
@@ -50,10 +51,23 @@ const props = defineProps({
 }
 .temp{
   text-align: right;
+  padding-left: 1em;
+  position: relative;
+}
+
+.temp::before {
+  content: "";             
+  height: 90%;            
+  width: 2px;              
+  background-color: black;
+  position: absolute;
+  left: 0;               
+  top: 0;
 }
 .dia{
   font-weight: bold;
   text-transform: capitalize;
 }
+
 
 </style>

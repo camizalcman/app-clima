@@ -27,7 +27,8 @@ const props = defineProps({
 .hora{
   display: flex;
   flex-direction: column;
-  background-color: rgba(242, 242, 242, 0.7);
+  background-color: rgba(235, 235, 235, 0.7);
+  border: 1px solid rgb(148, 148, 148);
   transition: transform 0.3s ease;
   padding:0.5em ;
     justify-content: center;

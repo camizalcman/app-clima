@@ -9,7 +9,6 @@ const emit = defineEmits(['buscar-clima'])
 <template>
     <div>
         <input type="text" name="ubicacion" id="ubi" placeholder="Ingrese su ubicación">
-        <i class="fa-solid fa-magnifying-glass icono"></i>
     </div>
 </template>
 <style scoped>

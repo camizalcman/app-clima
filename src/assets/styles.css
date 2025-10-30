@@ -67,14 +67,31 @@
   text-align: center;
   width: 31%;
   transition: transform 0.3s ease;
-  background-color: rgba(242, 242, 242, 0.7);
+  background-color: rgba(235, 235, 235, 0.7);
+  border: 1px solid rgb(148, 148, 148);
   border-radius: 10px;
   padding: 0.5em;
+  height: 16vh;
+  line-height: 1.4;
 }
 
 .item:hover{
   transform: scale(1.06);
 }
+
+.itemH{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease;
+  background-color: rgba(235, 235, 235, 0.7);
+  border: 1px solid rgb(148, 148, 148);
+  border-radius: 10px;
+  padding: 0.5em;
+  height: 16vh;
+}
+
 
 .contenedor{
   display: flex;
@@ -88,7 +105,7 @@
 
 .tituloCaja{
   font-weight: 500;
-  font-size: 1.4em;
+  font-size: 1.2em;
   margin-bottom: 1em
 }
 
