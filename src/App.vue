@@ -76,7 +76,6 @@ function obtenerClima(lat = null, lon = null){
     } else {
       forecastURL.searchParams.append("q", "Buenos Aires");
     }
-
     return fetch(forecastURL, myRequestParams)
       .then(res => {
         if (!res.ok) {
@@ -169,7 +168,7 @@ const fondoActual = computed(() => {
 </script>
 
 <template>
-  <div class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(0,0,0,0.1)', backgroundBlendMode:'multiply' }">
+  <div class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(29,29,29,0.2)', backgroundBlendMode:'multiply' }">
     <div class="grid-layout">
       
       <div class="item1 estilo-item">
@@ -188,7 +187,7 @@ const fondoActual = computed(() => {
                 <p>{{ clima.current.condition.text }}</p>
             </div>
 
-            <div>
+            <div class="info">
               <p>Humedad: {{ clima.current.humidity }}%</p>
               <p>Viento: {{ clima.current.wind_kph }} km/h</p>
               <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
@@ -239,8 +238,7 @@ const fondoActual = computed(() => {
 }
 
 .iconoClima{
-
-animation: flotar 3s ease-in-out infinite;
+  animation: flotar 3s ease-in-out infinite;
 }
 
 @keyframes flotar {
@@ -249,5 +247,7 @@ animation: flotar 3s ease-in-out infinite;
   100% { transform: translateY(0px); }
 }
 
-
+.info{
+  margin-right: 1em;
+}
 </style>
