@@ -7,7 +7,6 @@
   justify-content: center;   
   align-items: center; 
   overflow: hidden;
-  
 }
 
 .grid-layout{
@@ -25,11 +24,15 @@
 .item1{
   grid-column: 1 / span 2; 
   grid-row: 1; 
+  display: grid;         
+  justify-items: center;
 }
 
 .item2 {
   grid-column: 3; 
   grid-row: 1;
+  display: grid;         
+  justify-items: center;
 }
 
 .cajas{
@@ -44,11 +47,15 @@
   background-color: rgba(245, 245, 245, 0.6);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(10px);
-  padding: 1em;
+  padding: 0.2em;
   border-radius: 1em;
   color: rgb(29, 29, 29);
   font-family: "Plus Jakarta Sans", sans-serif;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .item3{
@@ -62,12 +69,10 @@
 .item{
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
   width: 31%;
   transition: transform 0.3s ease;
-  border-radius: 10px;
   padding: 0.5em;
   height: 18vh;
   line-height: 1.2;
@@ -94,16 +99,19 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  justify-self: center;
+  width: 100%;
 }
 
 .caja{
   font-family: "Plus Jakarta Sans", sans-serif;
+  width: 90%;
 }
 
 .tituloCaja{
   font-weight: 600;
   font-size: 1.1em;
-  margin-bottom: 0.4em
+  margin-bottom: 1.5em
 }
 
 .textoItem{
@@ -117,6 +125,10 @@
 
 .w100{
   width: 100%;
+}
+
+.w90{
+  width: 90%;
 }
 
 .dibujo{

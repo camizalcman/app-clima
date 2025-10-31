@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-   <div v-if="clima && clima.forecast" class="contPronostico w100">
+   <div v-if="clima && clima.forecast" class="contPronostico">
       <div v-for="(item, index) in clima.forecast.pronostico" :key="index" class="pronostico">
         <div class="df w100">
             <div class="icono"><img :src="item.icon" width="50" height="50" /></div>
@@ -27,6 +27,8 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   gap: 1.6em;
+  width: 100%;
+  margin-top: 1em;
 }
 .pronostico{
   width: 100%;

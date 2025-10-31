@@ -22,6 +22,7 @@ const props = defineProps({
 .contenedorHoras{
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-top: 1.5em;
 }
 
 .hora{

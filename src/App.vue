@@ -172,38 +172,41 @@ const fondoActual = computed(() => {
     <div class="grid-layout">
       
       <div class="item1 estilo-item">
-        <div v-if="clima">
-          <div class="df contClima">
-            <div>
-              <h2 class="lugar">📍{{ clima.location.name }}</h2>
-              
-              <p class="fecha">{{new Date(clima.location.localtime).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}}, {{ clima.location.localtime.split(' ')[1] }}</p> 
+        <div class="contenidoActual">
+          <div v-if="clima">
+            <div class="df contClima">
+              <div>
+                <h2 class="lugar">📍{{ clima.location.name }}</h2>
+                
+                <p class="fecha">{{new Date(clima.location.localtime).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}}, {{ clima.location.localtime.split(' ')[1] }}</p> 
 
-              <div class="df iconoTemp">
-                <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="100" height="100" class="iconoClima">
-                <h1 class="tempActual">{{ clima.current.temp_c }}°C</h1>
+                <div class="df iconoTemp">
+                  <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="100" height="100" class="iconoClima">
+                  <h1 class="tempActual">{{ clima.current.temp_c }}°C</h1>
+                </div>
+                  <p>Sensación térmica: {{ clima.current.feelslike_c }} °C</p>
+                  <p>{{ clima.current.condition.text }}</p>
               </div>
-                <p>Sensación térmica: {{ clima.current.feelslike_c }} °C</p>
-                <p>{{ clima.current.condition.text }}</p>
-            </div>
 
-            <div class="info">
-              <p>Humedad: {{ clima.current.humidity }}%</p>
-              <p>Viento: {{ clima.current.wind_kph }} km/h</p>
-              <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
-              <p>UV: {{ clima.current.uv }} mm</p>
-            </div>
-          </div>    
-             <div class="horarios"><climaHorario :clima="clima" /></div>
-          </div>
+              <div class="info">
+                <p>Humedad: {{ clima.current.humidity }}%</p>
+                <p>Viento: {{ clima.current.wind_kph }} km/h</p>
+                <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
+                <p>UV: {{ clima.current.uv }} mm</p>
+              </div>
 
+              </div>    
+                <div class="horarios"><climaHorario :clima="clima" /></div>
+              </div>
+            
           <div v-else>
             <img src="/src/assets/img/sol.png" alt="sol" width="40" height="40">
             <p>Cargando clima...</p>
           </div>
+        </div>
       </div>
 
-      <div class="item2 estilo-item"><InputUbi/><PronosticoDiario :clima="clima" /></div>
+      <div class="item2 estilo-item"><div class="w90"><InputUbi/><PronosticoDiario :clima="clima" /></div></div>
 
       <div class="cajas">
         <div class="item3 estilo-item"><Vestimenta :clima="clima" /></div>
@@ -217,6 +220,7 @@ const fondoActual = computed(() => {
 
 <style scoped>
 .contClima{
+  display: flex;
   justify-content: space-between;
 }
 .lugar{
@@ -250,4 +254,9 @@ const fondoActual = computed(() => {
 .info{
   margin-right: 1em;
 }
+
+.contenidoActual{
+  width: 95%;
+}
+
 </style>
