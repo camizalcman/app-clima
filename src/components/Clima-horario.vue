@@ -11,7 +11,7 @@ const props = defineProps({
       <div v-for="(item, index) in clima.forecast.horaPorHora" :key="index" class="hora">
         <p>{{ item.hora }}</p>
         <div><img :src="item.icon" width="30" height="30" /></div>
-        <p>{{ item.temp }}°C</p>
+        <p class="temp">{{ item.temp }}°C</p>
       </div>
     </div>
     <div v-else>
@@ -27,13 +27,14 @@ const props = defineProps({
 .hora{
   display: flex;
   flex-direction: column;
-  background-color: rgba(235, 235, 235, 0.7);
-  border: 1px solid rgb(148, 148, 148);
+  background-color: rgba(243, 243, 243, 0.8);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-  padding:0.5em ;
+  width: 3.8em;
+  padding: 0.6em 0;
     justify-content: center;
   align-items: center;
-    border-radius: 10px;
+    border-radius:10px;
 }
 
 .hora:hover{
@@ -44,4 +45,7 @@ p{
     font-size: 12px;
 }
 
+.temp{
+  font-weight:600;
+}
 </style>

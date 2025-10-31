@@ -56,7 +56,7 @@ const precActual = computed(()=>{
         <h2 class="tituloCaja">Precauciones</h2>
         <div class="contenedor">
             <div v-for="(item, index) in precActual" :key="index" class="itemH">
-                <img :src="item.img" :alt="item.precaucion" width="50" height="50"/>
+                <img :src="item.img" :alt="item.precaucion" width="50" height="50" class="dibujo"/>
                 <p class="textoItem">{{ item.precaucion }}</p>
             </div>
         </div>

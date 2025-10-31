@@ -60,7 +60,7 @@ const ropaActual = computed(()=>{
     <h2 class="tituloCaja">Vestimenta recomendada</h2>
     <div class="contenedor">
       <div v-for="(item, index) in ropaActual.slice(0,3)" :key="index" class="item">
-        <div class="contImg"><img :src="item.img" :alt="item.prenda" width="50" height="50"/></div>
+        <div class="contImg"><img :src="item.img" :alt="item.prenda" width="50" height="50" class="dibujo"/></div>
         <div class="contTexto"><p class="textoItem">{{ item.prenda }}</p></div>
       </div>
     </div>

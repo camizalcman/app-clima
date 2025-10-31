@@ -81,7 +81,7 @@ const actividadesActual = computed(()=>{
         <h2 class="tituloCaja">Actividades recomendadas</h2>
         <div class="contenedor">
             <div v-for="(item, index) in actividadesActual" :key="index" class="item">
-                <img :src="item.img" :alt="item.actividad" width="50" height="50"/>
+                <img :src="item.img" :alt="item.actividad" width="50" height="50" class="dibujo"/>
                 <p class="textoItem">{{ item.actividad }}</p>
             </div>
         </div>

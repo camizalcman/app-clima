@@ -36,8 +36,8 @@ const props = defineProps({
   justify-content: center;
   align-items: center;
   transition: transform 0.3s ease;
-  background-color: rgba(235, 235, 235, 0.7);
-  border: 1px solid rgb(148, 148, 148);
+  background-color: rgba(243, 243, 243, 0.8);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   margin-right: 0.8em;
 }
