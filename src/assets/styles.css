@@ -1,6 +1,6 @@
 .fondo {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-size: cover;
   background-position: center;
   display: flex;            
@@ -13,12 +13,13 @@
 .grid-layout{
   display: grid;
   width: 88%;
-  min-height: 90vh;
-  margin: 2em auto;
+  height: 100vh;
   grid-template-columns: repeat(3, 1fr); 
   grid-template-rows: auto auto;
   gap: 1em;
   box-sizing: border-box;
+  padding-top: 1.2em;
+  padding-bottom: 1.2em
 }
 
 .item1{
@@ -36,7 +37,6 @@
   display: flex;
   justify-content: space-between;
   gap: 1em;
-  margin-top: 10px;
   flex-wrap: wrap;
 }
 
@@ -48,7 +48,7 @@
   border-radius: 1em;
   color: rgb(29, 29, 29);
   font-family: "Plus Jakarta Sans", sans-serif;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .item3{
@@ -87,6 +87,7 @@
   border-radius: 10px;
   padding: 0.5em;
   height: 18vh;
+  width: 100%;
 }
 
 .contenedor{
@@ -100,8 +101,8 @@
 }
 
 .tituloCaja{
-  font-weight: 500;
-  font-size: 1.2em;
+  font-weight: 600;
+  font-size: 1.1em;
   margin-bottom: 0.4em
 }
 

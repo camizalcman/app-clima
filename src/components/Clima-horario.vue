@@ -30,15 +30,16 @@ const props = defineProps({
   background-color: rgba(243, 243, 243, 0.8);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-  width: 3.8em;
+  width: 3.6em;
   padding: 0.6em 0;
-    justify-content: center;
+  justify-content: center;
   align-items: center;
-    border-radius:10px;
+  border-radius:10px;
 }
 
 .hora:hover{
   transform: scale(1.06);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 p{
