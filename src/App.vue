@@ -231,6 +231,7 @@ const fondoActual = computed(() => {
 }
 .tempActual{
   font-size: 3.4em;
+  font-weight: 500;
 }
 .iconoTemp{
   align-items: center;
@@ -253,6 +254,7 @@ const fondoActual = computed(() => {
 
 .info{
   margin-right: 1em;
+  line-height: 2em;
 }
 
 .contenidoActual{

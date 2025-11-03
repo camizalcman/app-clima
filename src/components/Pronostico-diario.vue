@@ -13,7 +13,7 @@ const props = defineProps({
             <div class="icono"><img :src="item.icon" width="50" height="50" /></div>
             <div class="textoPronostico">
               <div><p class="dia">{{ item.dia }} <br><p>{{ item.descripcion }}</p></br></p></div>
-              <div class="temp"><p>{{ item.tempMax }}° <br>{{ item.tempMin }}°</br></p></div>
+              <div class="temp"><p><span class="temp-max">{{ item.tempMax }}°</span><br>{{ item.tempMin }}°</br></p></div>
             </div>
         </div>
       </div>
@@ -57,7 +57,7 @@ const props = defineProps({
   position: relative;
 }
 
-.temp::before {
+/*.temp::before {
   content: "";             
   height: 90%;            
   width: 2px;              
@@ -65,11 +65,13 @@ const props = defineProps({
   position: absolute;
   left: 0;               
   top: 0;
-}
+}*/
 .dia{
   font-weight: bold;
   text-transform: capitalize;
 }
-
+.temp-max{
+  font-weight: 700;
+}
 
 </style>

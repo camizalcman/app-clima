@@ -12,13 +12,11 @@
 .grid-layout{
   display: grid;
   width: 88%;
-  height: 100vh;
+  height: 90vh;
   grid-template-columns: repeat(3, 1fr); 
   grid-template-rows: auto auto;
   gap: 1em;
   box-sizing: border-box;
-  padding-top: 1.2em;
-  padding-bottom: 1.2em
 }
 
 .item1{
@@ -56,6 +54,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 2px solid red;
 }
 
 .item3{
