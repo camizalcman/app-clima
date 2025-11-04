@@ -22,7 +22,7 @@ const errorMsg = ref("");
 const myAPIKey = "8ba418c512314911b0a200932251210";
 
 //Función para obtener clima
-function obtenerClima(lat = null, lon = null){
+function obtenerClima(lat = null, lon = null, ciudad=null){
 
   //armo la URL para llamar a current.json
   const climaURL = new URL("https://api.weatherapi.com/v1/current.json");
@@ -34,6 +34,8 @@ function obtenerClima(lat = null, lon = null){
   //Si están las coordenadas coordenadas, uso lat y lon, sino uso la ciudad por defecto
   if (lat !== null && lon !== null) {
     climaURL.searchParams.append("q", `${lat},${lon}`);
+  } else if (ciudad){
+    climaURL.searchParams.append("q", ciudad);
   } else {
     climaURL.searchParams.append("q", "Buenos Aires");
   }
@@ -141,6 +143,11 @@ navigator.geolocation.getCurrentPosition(
   }
 );
 
+//Búsqueda de clima por input
+function busquedaClimaInput(ciudad) {
+  obtenerClima(null, null, ciudad)
+}
+
 //Selección de fondos
 const fondoActual = computed(() => {
   if (!clima.value) return soleado
@@ -176,7 +183,7 @@ const fondoActual = computed(() => {
           <div v-if="clima">
             <div class="df contClima">
               <div>
-                <h2 class="lugar">📍{{ clima.location.name }}</h2>
+                <h2 class="lugar"><font-awesome-icon icon="fa-solid fa-location-dot" class="iconUbi"/>{{ clima.location.name }}</h2>
                 
                 <p class="fecha">{{new Date(clima.location.localtime).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}}, {{ clima.location.localtime.split(' ')[1] }}</p> 
 
@@ -189,10 +196,10 @@ const fondoActual = computed(() => {
               </div>
 
               <div class="info">
-                <p>Humedad: {{ clima.current.humidity }}%</p>
-                <p>Viento: {{ clima.current.wind_kph }} km/h</p>
-                <p>Precipitación: {{ clima.current.precip_mm }} mm</p>
-                <p>UV: {{ clima.current.uv }} mm</p>
+                <p><font-awesome-icon icon="fa-solid fa-droplet" class="icon"/>Humedad: {{ clima.current.humidity }}%</p>
+                <p><font-awesome-icon icon="fa-solid fa-wind" class="icon"/>Viento: {{ clima.current.wind_kph }} km/h</p>
+                <p><font-awesome-icon icon="fa-solid fa-cloud-rain" class="icon"/>Precipitación: {{ clima.current.precip_mm }} mm</p>
+                <p><font-awesome-icon icon="fa-solid fa-sun" class="icon"/>UV: {{ clima.current.uv }} mm</p>
               </div>
 
               </div>    
@@ -206,7 +213,7 @@ const fondoActual = computed(() => {
         </div>
       </div>
 
-      <div class="item2 estilo-item"><div class="w90"><InputUbi/><PronosticoDiario :clima="clima" /></div></div>
+      <div class="item2 estilo-item"><div class="w90"> <InputUbi @buscarUbi="busquedaClimaInput" /><PronosticoDiario :clima="clima" /></div></div>
 
       <div class="cajas">
         <div class="item3 estilo-item"><Vestimenta :clima="clima" /></div>

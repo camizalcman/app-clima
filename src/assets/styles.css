@@ -54,7 +54,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 2px solid red;
 }
 
 .item3{
@@ -132,4 +131,14 @@
 
 .dibujo{
   margin-bottom: 1em;
+}
+
+.icon{
+  color: rgb(73, 73, 73);
+  margin-right: 0.5em;
+}
+
+.iconUbi{
+  color: rgb(73, 73, 73);
+  margin-right: 0.3em;
 }
