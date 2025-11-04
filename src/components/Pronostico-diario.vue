@@ -12,7 +12,7 @@ const props = defineProps({
         <div class="df w100">
             <div class="icono"><img :src="item.icon" width="50" height="50" /></div>
             <div class="textoPronostico">
-              <div><p class="dia">{{ item.dia }} <br><p>{{ item.descripcion }}</p></br></p></div>
+              <div><p class="dia">{{ item.dia }} <br><p class="descrip">{{ item.descripcion }}</p></br></p></div>
               <div class="temp"><p><span class="temp-max">{{ item.tempMax }}°</span><br>{{ item.tempMin }}°</br></p></div>
             </div>
         </div>
@@ -73,5 +73,7 @@ const props = defineProps({
 .temp-max{
   font-weight: 700;
 }
-
+.descrip{
+  font-size: 14px;
+}
 </style>

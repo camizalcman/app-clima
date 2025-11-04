@@ -213,7 +213,7 @@ const fondoActual = computed(() => {
         </div>
       </div>
 
-      <div class="item2 estilo-item"><div class="w90"> <InputUbi @buscarUbi="busquedaClimaInput" /><PronosticoDiario :clima="clima" /></div></div>
+      <div class="item2 estilo-item"><div class="w90 contenedorPronostico"> <InputUbi @buscarUbi="busquedaClimaInput" /><PronosticoDiario :clima="clima" /></div></div>
 
       <div class="cajas">
         <div class="item3 estilo-item"><Vestimenta :clima="clima" /></div>
@@ -268,4 +268,10 @@ const fondoActual = computed(() => {
   width: 95%;
 }
 
+.contenedorPronostico{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
 </style>
