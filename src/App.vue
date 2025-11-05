@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { computed } from 'vue'
 import Vestimenta from './components/Vestimenta.vue'
 import Actividades from './components/Actividades.vue'
@@ -14,6 +14,16 @@ import lluvia from '@/assets/img/lluvia.jpg'
 import Precauciones from "./components/Precauciones.vue";
 
 import './assets/styles.css'
+
+//para actualizar la fecha constantemente
+const fechaActual = ref(new Date())
+
+onMounted(() => {
+  setInterval(() => {
+    fechaActual.value = new Date()
+  }, 1000) 
+})
+
 
 
 const clima = ref(null);
@@ -175,7 +185,7 @@ const fondoActual = computed(() => {
 </script>
 
 <template>
-  <div class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(29,29,29,0.2)', backgroundBlendMode:'multiply' }">
+  <div class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(29,29,29,0.25)', backgroundBlendMode:'multiply' }">
     <div class="grid-layout">
       
       <div class="item1 estilo-item">
@@ -185,7 +195,21 @@ const fondoActual = computed(() => {
               <div>
                 <h2 class="lugar"><font-awesome-icon icon="fa-solid fa-location-dot" class="iconUbi"/>{{ clima.location.name }}</h2>
                 
-                <p class="fecha">{{new Date(clima.location.localtime).toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' })}}, {{ clima.location.localtime.split(' ')[1] }}</p> 
+               <p class="fecha">
+                {{
+                  new Date().toLocaleDateString('es-AR', {
+                    weekday: 'long',
+                    day: 'numeric',
+                    month: 'long'
+                  })
+                }},
+                {{
+                  new Date().toLocaleTimeString('es-AR', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })
+                }}
+              </p>
 
                 <div class="df iconoTemp">
                   <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="100" height="100" class="iconoClima">
@@ -273,5 +297,67 @@ const fondoActual = computed(() => {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+}
+
+.fondo {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;            
+  justify-content: center;   
+  align-items: center; 
+  overflow: hidden;
+}
+
+.grid-layout{
+  display: grid;
+  width: 88%;
+  max-height: 96vh;
+  grid-template-columns: repeat(3, 1fr); 
+  grid-template-rows: auto auto;
+  gap: 1em;
+  box-sizing: border-box;
+}
+
+.item1{
+  grid-column: 1 / span 2; 
+  grid-row: 1; 
+  display: grid;         
+  justify-items: center;
+}
+
+.item2 {
+  grid-column: 3; 
+  grid-row: 1;
+  display: grid;         
+  justify-items: center;
+}
+
+.cajas{
+  grid-column: 1 / span 3; 
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.estilo-item{
+  background-color: rgba(245, 245, 245, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1em 0em;
+  border-radius: 1em;
+  color: rgb(29, 29, 29);
+  font-family: "Plus Jakarta Sans", sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.item3{
+  flex: 1;
 }
 </style>

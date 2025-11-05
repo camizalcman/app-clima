@@ -8,43 +8,52 @@ const ubicacion = ref('')
 
 //defino la funcion que enviará el dato
 function enviarUbicacion() {
-    if(ubicacion.value.trim !==" "){
-        emit('buscarUbi', ubicacion.value)
-    }
+  const ciudad = ubicacion.value.trim()
+  if (ciudad !== '') {
+    emit('buscarUbi', ciudad)
+  }
 }
 
 
 </script>
 <template>
     <div class="ingresarUbi">
-        <input type="text" name="ubicacion" id="ubi" placeholder="Ingrese su ubicación" @keyup.enter="enviarUbicacion"/>
+        <input v-model="ubicacion" type="text" name="ubicacion" id="ubi" placeholder="Ingrese su ubicación" @keyup.enter="enviarUbicacion"/>
          <button @click="enviarUbicacion"><font-awesome-icon icon="fa-solid fa-paper-plane" /></button>
     </div>
     
 </template>
 <style scoped>
 .ingresarUbi{
-    width: 100%;
     display: flex;
-    justify-content: space-between;
+     align-items: center; 
+    position: relative;
+    width: 100%;
 }
 
 #ubi{
-    border-radius: 20px;
-    border: 1px;
-    padding: 0.8em;
-    margin-bottom: 2em;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    width: 86%;
+    width: 100%;
+  padding: 0.8em 3em 0.8em 1em;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  margin-bottom: 2em;
+  box-sizing: border-box;
 }
-button{
-    border: black;
-    background-color:  rgb(73, 73, 73);
-   color: rgb(255, 255, 255);
-   padding: 0.8em;
-   border-radius: 20px;
-   width: 10%;
-   height: 100%;
 
+button{
+   position: absolute;
+  right: 0.8em;
+    transform: translateY(-60%);
+
+  border: none;
+  background: none;
+  color:rgb(53, 53, 53);
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.ingresarUbi button:hover {
+  color: black;
 }
 </style>
