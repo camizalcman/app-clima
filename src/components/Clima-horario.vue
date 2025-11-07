@@ -19,10 +19,19 @@ const props = defineProps({
     </div>
 </template>
 <style scoped>
-.contenedorHoras{
+/*.contenedorHoras{
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 1.5em;
+}*/
+
+.contenedorHoras {
+  display: grid;
+  gap: 0.6em;
+  margin-top: 1.5em;
+  grid-template-columns: repeat(12, 1fr);
+    box-sizing: border-box;
+  width: 100%;
 }
 
 .hora{
@@ -31,7 +40,7 @@ const props = defineProps({
   background-color: rgba(243, 243, 243, 0.8);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-  width: 3.6em;
+   width: 100%;
   padding: 0.6em 0;
   justify-content: center;
   align-items: center;
@@ -49,5 +58,28 @@ p{
 
 .temp{
   font-weight:700;
+}
+
+/* Computadora chica */
+@media (max-width: 1500px){
+    .contenedorHoras{
+      gap: 0.3em;
+    }
+}
+
+/* Tablet */
+@media (max-width: 1023px){
+  .contenedorHoras {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1em;
+  }
+}
+
+/* Mobile */
+@media (max-width: 599px) {
+  .contenedorHoras {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.4em;
+  }
 }
 </style>

@@ -76,4 +76,5 @@ const props = defineProps({
 .descrip{
   font-size: 14px;
 }
+
 </style>

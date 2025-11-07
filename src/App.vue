@@ -360,4 +360,47 @@ const fondoActual = computed(() => {
 .item3{
   flex: 1;
 }
+
+
+/* Tablet */
+@media (max-width: 1023px) {
+    .grid-layout {
+    grid-template-columns: 1fr;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    max-height: none;  
+  }
+  .item1,
+  .item2,
+  .cajas {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+   .cajas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+   .fondo {
+    height: auto;          
+    min-height: 100vh;     
+    overflow: auto;        
+    align-items: flex-start; 
+  }
+
+  .item3{
+    width: 100%;
+  }
+
+  .item1{
+    padding: 1.2em 0.6em;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px){
+  
+}
 </style>
