@@ -1,9 +1,12 @@
 <script setup>
+//IMPORTS
+import { ref } from 'vue'
 
 //PROPS
 const props = defineProps({
   clima:Object
 })
+
 </script>
 
 <template>
@@ -79,7 +82,10 @@ p{
 @media (max-width: 599px) {
   .contenedorHoras {
     grid-template-columns: repeat(4, 1fr);
-    gap: 1.4em;
+    gap: 0.8em 1.6em;
+  }
+  .hora{
+    padding: 0.2em 0;
   }
 }
 </style>

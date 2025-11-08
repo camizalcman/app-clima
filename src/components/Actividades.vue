@@ -1,51 +1,28 @@
 <script setup>
 //IMPORTS
-import chocolate from '@/assets/img/chocolate.png'
-import cine from '@/assets/img/cine.png'
-import museo from '@/assets/img/museo.png'
-import picnic from '@/assets/img/picnic.png'
-import bicicleta from '@/assets/img/bicicleta.png'
-import caminar from '@/assets/img/caminar.png'
-import playa from '@/assets/img/playa.png'
-import pileta from '@/assets/img/pileta.png'
-import helado from '@/assets/img/helado.png'
-import pelicula from '@/assets/img/pelicula.png'
-import cocinar from '@/assets/img/cocinar.png'
-import juegoDeMesa from '@/assets/img/juegoDeMesa.png'
-
+import data from '@/data/data.json'
+import { ref, computed } from 'vue'
 import '../assets/styles.css'
 
-import { ref, computed } from 'vue'
+//Convertir las rutas de imagen en URLs reales
+const procesarLista = (lista) => {
+  return lista.map(item => ({
+    ...item,
+    //copia todas las propiedades del objeto original y sobrescribe la propiedad img con la URL real de la imagen
+    img: new URL(item.img.replace('@/', '/src/'), import.meta.url).href
+  }))
+}
+
+// Actividades por clima
+const actFrio = procesarLista(data.actividadesPorClima.frio)
+const actTemplado = procesarLista(data.actividadesPorClima.templado)
+const actCalor = procesarLista(data.actividadesPorClima.calor)
+const actLluvia = procesarLista(data.actividadesPorClima.lluvia)
 
 //PROPS
 const props = defineProps({
   clima:Object
 })
-
-const actFrio = [
-  { actividad: "Tomar chocolate caliente", img: chocolate },
-  { actividad: "Ir al cine", img: cine },
-  { actividad: "Visitar un museo", img: museo },
-]
-
-const actTemplado = [
-  { actividad: "Hacer picnic con amigos", img: picnic },
-  { actividad: "Andar en bicicleta", img: bicicleta },
-  { actividad: "Caminar al aire libre", img: caminar },
-]
-
-const actCalor = [
-  { actividad: "Ir a la playa", img: playa },
-  { actividad: "Ir a la pileta", img: pileta },
-  { actividad: "Tomar helado", img: helado },
-]
-
-const actLluvia = [
-  { actividad: "Ver una película", img: pelicula },
-  { actividad: "Cocinar algo rico", img: cocinar },
-  { actividad: "Jugar juegos de mesa", img: juegoDeMesa },
-]
-
 
 //computed para definir las actividades a mostrar
 const actividadesActual = computed(()=>{
@@ -82,19 +59,26 @@ const inicio = ref(0);
 const cantidadVisible = 3;
 
 const itemsVisibles = computed(() => {
-  return actividadesActual.slice(inicio.value, inicio.value + cantidadVisible);
+  return actividadesActual.value.slice(inicio.value, inicio.value + cantidadVisible);
 });
 
 //Botones
 const siguiente = () => {
   if (inicio.value + cantidadVisible < actividadesActual.value.length) {
     inicio.value += cantidadVisible; //avanza la cantidad de posiciones que se están mostrando 
+  } else {
+    //Si llego al final vuelvo al inicio
+    inicio.value = 0
   }
 };
 
 const anterior = () => {
   if (inicio.value - cantidadVisible >= 0) {
     inicio.value -= cantidadVisible;
+  } else {
+    //Si estoy en el inicio, voy al final
+    const total = actividadesActual.value.length
+    inicio.value = Math.max(total - cantidadVisible, 0)
   }
 };
 </script>
@@ -105,16 +89,16 @@ const anterior = () => {
         <h2 class="tituloCaja">Actividades recomendadas</h2>
 
         <div class="galeria">
-          <button class="boton" @click="anterior"><</button>
+          <button class="boton" @click="anterior"><font-awesome-icon icon="fa-solid fa-chevron-left" class="iconoBoton"/></button>
 
           <div class="contenedor">
-              <div v-for="(item, index) in actividadesActual" :key="index" class="item">
+              <div v-for="(item, index) in itemsVisibles" :key="index" class="item">
                   <img :src="item.img" :alt="item.actividad" width="50" height="50" class="dibujo"/>
                   <p class="textoItem">{{ item.actividad }}</p>
               </div>
           </div>
 
-          <button class="boton" @click="siguiente">></button>
+          <button class="boton" @click="siguiente"><font-awesome-icon icon="fa-solid fa-chevron-right" class="iconoBoton"/></button>
         </div>
 
     </div>
