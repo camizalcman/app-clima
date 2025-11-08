@@ -8,9 +8,12 @@ import climaHorario from "./components/Clima-horario.vue";
 import InputUbi from "./components/InputUbi.vue";
 
 import frio from '@/assets/img/frio.jpg'
+import frioMedio from '@/assets/img/frioMedio.jpg'
 import templado from '@/assets/img/templado.jpg'
 import soleado from '@/assets/img/soleado.jpg'
 import lluvia from '@/assets/img/lluvia.jpg'
+import nocheLluvia from '@/assets/img/nocheLluvia.jpg'
+import noche from '@/assets/img/noche.jpg'
 import Precauciones from "./components/Precauciones.vue";
 
 import './assets/styles.css'
@@ -158,13 +161,28 @@ function busquedaClimaInput(ciudad) {
   obtenerClima(null, null, ciudad)
 }
 
+const fondoManual = ref(null) //para cambiar desde la consola
+window.fondoManual = fondoManual
+window.frioMedio = frioMedio
+window.frio = frio
+window.templado = templado
+window.soleado = soleado
+window.noche = noche
+window.lluvia = lluvia
+window.nocheLluvia = nocheLluvia
+
 //Selección de fondos
 const fondoActual = computed(() => {
+  if (fondoManual.value) return fondoManual.value
   if (!clima.value) return soleado
 
   const temp = clima.value.current.temp_c
   const precip = clima.value.current.precip_mm
   const textoClima = clima.value.current.condition.text.toLowerCase()
+  const hora = new Date().getHours()
+  const esNoche = hora > 20 || hora < 7
+  console.log(esNoche)
+  
   const hayLluvia =
     precip > 0 ||
     textoClima.includes("lluvia") ||
@@ -172,9 +190,14 @@ const fondoActual = computed(() => {
     textoClima.includes("tormenta") ||
     textoClima.includes("llovizna")
 
+  
+  if (hayLluvia && esNoche) return nocheLluvia
   if (hayLluvia) return lluvia
-  if (temp < 15) {
+  if (esNoche) return noche
+  if (temp < 5) {
     return frio;
+  } else if (temp < 15){
+      return frioMedio;
   } else if (temp < 25) {
     return templado;
   } else {
@@ -215,8 +238,8 @@ const fondoActual = computed(() => {
                   <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="100" height="100" class="iconoClima">
                   <h1 class="tempActual">{{ clima.current.temp_c }}°C</h1>
                 </div>
-                  <p>Sensación térmica: {{ clima.current.feelslike_c }} °C</p>
-                  <p>{{ clima.current.condition.text }}</p>
+                  <p class="cambioMobile">Sensación térmica: {{ clima.current.feelslike_c }} °C</p>
+                  <p class="cambioMobile">{{ clima.current.condition.text }}</p>
               </div>
 
               <div class="info">
@@ -401,6 +424,28 @@ const fondoActual = computed(() => {
 
 /* Mobile */
 @media (max-width: 767px){
-  
+  .tempActual{
+    font-size: 2.5em;
+    font-weight: 500;
+  }
+  .iconoClima{
+    width: 4em;
+    height: 4em;
+  }
+  .fecha{
+    margin-bottom: 0.6em;
+    font-size: 0.8em;
+  }
+  .info{
+    margin-right: 0em;
+    line-height: 2em;
+    font-size: 0.86em;
+  }
+  .cambioMobile{
+    font-size: 0.9em;
+  }
+  .iconoTemp{
+    margin-bottom: 0.6em;
+  }
 }
 </style>

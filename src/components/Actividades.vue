@@ -15,7 +15,7 @@ import juegoDeMesa from '@/assets/img/juegoDeMesa.png'
 
 import '../assets/styles.css'
 
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 
 //PROPS
 const props = defineProps({
@@ -25,7 +25,7 @@ const props = defineProps({
 const actFrio = [
   { actividad: "Tomar chocolate caliente", img: chocolate },
   { actividad: "Ir al cine", img: cine },
-  { actividad: "Visitar un museo", img: museo }
+  { actividad: "Visitar un museo", img: museo },
 ]
 
 const actTemplado = [
@@ -45,6 +45,7 @@ const actLluvia = [
   { actividad: "Cocinar algo rico", img: cocinar },
   { actividad: "Jugar juegos de mesa", img: juegoDeMesa },
 ]
+
 
 //computed para definir las actividades a mostrar
 const actividadesActual = computed(()=>{
@@ -75,17 +76,49 @@ const actividadesActual = computed(()=>{
     return resultado
 }
 )
+
+//Estado del carrusel
+const inicio = ref(0);
+const cantidadVisible = 3;
+
+const itemsVisibles = computed(() => {
+  return actividadesActual.slice(inicio.value, inicio.value + cantidadVisible);
+});
+
+//Botones
+const siguiente = () => {
+  if (inicio.value + cantidadVisible < actividadesActual.value.length) {
+    inicio.value += cantidadVisible; //avanza la cantidad de posiciones que se están mostrando 
+  }
+};
+
+const anterior = () => {
+  if (inicio.value - cantidadVisible >= 0) {
+    inicio.value -= cantidadVisible;
+  }
+};
 </script>
 <template>
-      <div class="caja">
+
+    <div class="caja">
+
         <h2 class="tituloCaja">Actividades recomendadas</h2>
-        <div class="contenedor">
-            <div v-for="(item, index) in actividadesActual" :key="index" class="item">
-                <img :src="item.img" :alt="item.actividad" width="50" height="50" class="dibujo"/>
-                <p class="textoItem">{{ item.actividad }}</p>
-            </div>
+
+        <div class="galeria">
+          <button class="boton" @click="anterior"><</button>
+
+          <div class="contenedor">
+              <div v-for="(item, index) in actividadesActual" :key="index" class="item">
+                  <img :src="item.img" :alt="item.actividad" width="50" height="50" class="dibujo"/>
+                  <p class="textoItem">{{ item.actividad }}</p>
+              </div>
+          </div>
+
+          <button class="boton" @click="siguiente">></button>
         </div>
+
     </div>
+
 </template>
 <style scoped>
 
