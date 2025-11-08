@@ -41,10 +41,7 @@
       "templado": [
         { "actividad": "Hacer picnic con amigos", "img": "@/assets/img/picnic.png" },
         { "actividad": "Andar en bicicleta", "img": "@/assets/img/bicicleta.png" },
-        { "actividad": "Caminar al aire libre", "img": "@/assets/img/caminar.png" },
-        { "actividad": "Ir a la playa", "img": "@/assets/img/playa.png" },
-        { "actividad": "Ir a la pileta", "img": "@/assets/img/pileta.png" },
-        { "actividad": "Tomar helado", "img": "@/assets/img/helado.png" }
+        { "actividad": "Caminar al aire libre", "img": "@/assets/img/caminar.png" }
       ],
       "calor": [
         { "actividad": "Ir a la playa", "img": "@/assets/img/playa.png" },
