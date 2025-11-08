@@ -1,7 +1,4 @@
 <script setup>
-//IMPORTS
-import { ref } from 'vue'
-
 //PROPS
 const props = defineProps({
   clima:Object
