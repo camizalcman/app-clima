@@ -32,7 +32,7 @@ const precActual = computed(()=>{
   let resultado = []
 
     //Selecciono por temperatura
-    if (temp < 15) resultado = precFrio
+    if (temp < 12) resultado = precFrio
     else if (temp < 25) resultado = precTemplado
     else resultado = precCalor
 
@@ -91,9 +91,12 @@ const anterior = () => {
           <button class="boton" @click="anterior"><font-awesome-icon icon="fa-solid fa-chevron-left" class="iconoBoton"/></button>
 
           <div class="contenedor">
-              <div v-for="(item, index) in precActual" :key="index" class="itemH">
-                  <img :src="item.img" :alt="item.precaucion" width="50" height="50" class="dibujo"/>
-                  <p class="textoItem">{{ item.precaucion }}</p>
+              <div v-for="(item, index) in itemsVisibles" :key="index" class="itemH">
+                  <img :src="item.img" :alt="item.precaucion" width="60" height="60" class="dibujo"/>
+                  <div class="descripcion">
+                    <p class="textoItem">{{ item.precaucion }}</p>
+                    <p class="subItem">{{ item.texto }}</p>
+                  </div>
               </div>
           </div>
           
@@ -103,6 +106,31 @@ const anterior = () => {
 </template>
 
 <style scoped>
+.itemH{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease;
+  padding: 0.5em;
+  height: 18vh;
+  width: 100%;
+  line-height: 1.2;
+}
+.textoItem{
+  font-size: 0.9em;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+.subItem{
+  font-size: 0.8em;
+}
 
-
+.descripcion{
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  margin-left: 0.8em;
+  line-height: 1.2em;
+}
 </style>

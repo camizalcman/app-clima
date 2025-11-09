@@ -32,7 +32,7 @@ const actividadesActual = computed(()=>{
   let resultado = []
 
     //Selecciono por temperatura
-    if (temp < 15) resultado = actFrio
+    if (temp < 12) resultado = actFrio
     else if (temp < 25) resultado = actTemplado
     else resultado = actCalor
 

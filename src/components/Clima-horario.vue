@@ -61,7 +61,7 @@ p{
 }
 
 /* Computadora chica */
-@media (max-width: 1500px){
+@media (max-width: 1300px){
     .contenedorHoras{
       gap: 0.3em;
     }

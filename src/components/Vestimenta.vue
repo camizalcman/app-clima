@@ -33,7 +33,7 @@ const ropaActual = computed(()=>{
   let resultado = []
 
     //Selecciono por temperatura
-    if (temp < 15) resultado = ropaFrio
+    if (temp < 12) resultado = ropaFrio
     else if (temp < 25) resultado = ropaTemplado
     else resultado = ropaCalor
 

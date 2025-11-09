@@ -14,18 +14,6 @@
   height: 18vh;
   line-height: 1.2;
 }
-.itemH{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: transform 0.3s ease;
-  padding: 0.5em;
-  height: 18vh;
-  width: 100%;
-  line-height: 1.2;
-}
 
 .item:hover{
   transform: scale(1.06);
@@ -104,4 +92,25 @@
 }
 .boton:hover{
   transform: scale(1.4);
+}
+
+/* Computadora chica */
+@media (max-width: 1500px){
+   .textoItem{
+      font-size: 0.7em;
+   }
+}
+
+/* Tablet */
+@media (max-width: 1023px){
+    .textoItem{
+      font-size: 0.9em;
+   }
+}
+
+/* Mobile */
+@media (max-width: 599px) {
+.textoItem{
+      font-size: 0.9em;
+   }
 }

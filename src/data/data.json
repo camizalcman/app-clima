@@ -35,37 +35,106 @@
     "frio": [
       { "actividad": "Tomar chocolate caliente", "img": "/img/chocolate.png" },
       { "actividad": "Ir al cine", "img": "/img/cine.png" },
-      { "actividad": "Visitar un museo", "img": "/img/museo.png" }
+      { "actividad": "Visitar un museo", "img": "/img/museo.png" },
+      { "actividad": "Leer un libro en casa", "img": "/img/libro.png" },
+      { "actividad": "Cocinar algo rico", "img": "/img/cocinar.png" },
+      { "actividad": "Ver una película", "img": "/img/pelicula.png" }
     ],
     "templado": [
       { "actividad": "Hacer picnic con amigos", "img": "/img/picnic.png" },
       { "actividad": "Andar en bicicleta", "img": "/img/bicicleta.png" },
-      { "actividad": "Caminar al aire libre", "img": "/img/caminar.png" }
+      { "actividad": "Caminar al aire libre", "img": "/img/caminar.png" },
+      { "actividad": "Sacar fotos al atardecer", "img": "/img/fotos.png" },
+      { "actividad": "Pasear por el parque", "img": "/img/parque.png" },
+      { "actividad": "Tomar café en un bar", "img": "/img/cafeBar.png" }
+      
     ],
     "calor": [
       { "actividad": "Ir a la playa", "img": "/img/playa.png" },
       { "actividad": "Ir a la pileta", "img": "/img/pileta.png" },
-      { "actividad": "Tomar helado", "img": "/img/helado.png" }
+      { "actividad": "Tomar helado", "img": "/img/helado.png" },
+      { "actividad": "Hacer picnic con amigos", "img": "/img/picnic.png" },
+      { "actividad": "Preparar limonada", "img": "/img/limonada.png" },
+            { "actividad": "Pasear por el parque", "img": "/img/parque.png" }
     ],
     "lluvia": [
       { "actividad": "Ver una película", "img": "/img/pelicula.png" },
       { "actividad": "Cocinar algo rico", "img": "/img/cocinar.png" },
-      { "actividad": "Jugar juegos de mesa", "img": "/img/juegoDeMesa.png" }
+      { "actividad": "Jugar juegos de mesa", "img": "/img/juegoDeMesa.png" },
+      { "actividad": "Leer un libro en casa", "img": "/img/libro.png" },
+      { "actividad": "Escuchar música relajante", "img": "/img/musica.png" },
+      { "actividad": "Hacer manualidades", "img": "/img/arte.png" }
     ]
   },
 
   "precaucionesPorClima": {
     "frio": [
-      { "precaucion": "Evitar cambios bruscos de temperatura", "img": "/img/temperatura.png" }
+      { 
+        "precaucion": "Evitar cambios bruscos de temperatura", 
+        "texto": "Esto podría generar resfriados o molestias respiratorias", 
+        "img": "/img/temperatura.png" 
+      },
+      { 
+        "precaucion": "Usar bufanda para proteger garganta y pecho", 
+        "texto": "Ayuda a mantener el calor corporal y prevenir anginas", 
+        "img": "/img/bufanda.png" 
+      },
+      { 
+        "precaucion": "Proteger manos del frío", 
+        "texto": "Usar guantes evita la resequedad y el entumecimiento", 
+        "img": "/img/guantes.png" 
+      }
     ],
     "templado": [
-      { "precaucion": "Mantenerse hidratado durante actividades", "img": "/img/botella-de-agua.png" }
+      { 
+        "precaucion": "Mantenerse hidratado durante actividades", 
+        "texto": "El cuerpo pierde líquidos al moverse", 
+        "img": "/img/botella-de-agua.png" 
+      },
+      { 
+        "precaucion": "Usar protector solar y sombrero", 
+        "texto": "Los rayos UV siempre están presentes", 
+        "img": "/img/protector-solar.png" 
+      },
+      { 
+        "precaucion": "Usar ropa cómoda y liviana", 
+        "texto": "Ayuda a regular la temperatura y moverte con libertad", 
+        "img": "/img/ropa-comoda.png" 
+      }
     ],
     "calor": [
-      { "precaucion": "Usar protector solar y sombrero", "img": "/img/protector-solar.png" }
+      { 
+        "precaucion": "Usar protector solar y sombrero", 
+        "texto": "Evita quemaduras y golpes de calor", 
+        "img": "/img/protector-solar.png" 
+      },
+      { 
+        "precaucion": "Evitar exponerse al sol entre las 12 y 16 hs", 
+        "texto": "Es el horario de mayor radiación UV", 
+        "img": "/img/reloj.png" 
+      },
+      { 
+        "precaucion": "Mantenerse hidratado durante actividades", 
+        "texto": "El sudor excesivo puede causar deshidratación", 
+        "img": "/img/botella-de-agua.png" 
+      }
     ],
     "lluvia": [
-      { "precaucion": "Evitar zonas con acumulación de agua", "img": "/img/inundacion.png" }
+      { 
+        "precaucion": "Evitar zonas con acumulación de agua", 
+        "texto": "Podrían ser resbaladizas o tener corriente debajo", 
+        "img": "/img/inundacion.png" 
+      },
+      { 
+        "precaucion": "Usar calzado impermeable", 
+        "texto": "Mantiene los pies secos y evita resfríos", 
+        "img": "/img/botas.png" 
+      },
+      { 
+        "precaucion": "Llevar paraguas o piloto", 
+        "texto": "Te protege del agua y de los cambios de temperatura", 
+        "img": "/img/paraguas.png" 
+      }
     ]
   }
 }
