@@ -94,6 +94,16 @@
   transform: scale(1.4);
 }
 
+.iconoScale{
+  animation: scale 3s ease-in-out infinite;
+}
+
+@keyframes scale {
+  0%   { transform: scale(1); filter: saturate(1);}
+  50%  { transform: scale(1.4); filter: saturate(2) ;}
+  100% { transform: scale(1); filter: saturate(1) ;}
+}
+
 /* Computadora chica */
 @media (max-width: 1500px){
    .textoItem{
