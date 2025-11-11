@@ -30,6 +30,7 @@ onMounted(() => {
 
 
 const clima = ref(null);
+
 const errorMsg = ref("");
 
 const myAPIKey = "8ba418c512314911b0a200932251210";
@@ -74,9 +75,9 @@ function obtenerClima(lat = null, lon = null, ciudad=null){
   })
   .then(data => {
     console.log("Datos del clima actual:", data);
-    
+
     clima.value = data; // guardo los datos en la variable reactiva
-  
+
     //SEGUNDA LLAMADA - FORECAST.JSON
     const forecastURL = new URL("https://api.weatherapi.com/v1/forecast.json");
 
@@ -88,6 +89,8 @@ function obtenerClima(lat = null, lon = null, ciudad=null){
 
     if (lat !== null && lon !== null) {
       forecastURL.searchParams.append("q", `${lat},${lon}`);
+    } else if (ciudad) {
+      forecastURL.searchParams.append("q", ciudad);
     } else {
       forecastURL.searchParams.append("q", "Buenos Aires");
     }
@@ -119,10 +122,17 @@ function obtenerClima(lat = null, lon = null, ciudad=null){
             tempMin: d.day.mintemp_c
         }));
 
-        clima.value.forecast = {
+        clima.value = {
+          ...data, // datos del clima actual
+          forecast: {
+            horaPorHora: hoyHoras,
+            pronostico: pronosticoDias
+          }
+        };
+        /*clima.value.forecast = {
           horaPorHora: hoyHoras,
           pronostico: pronosticoDias
-        };
+        };*/
 
         console.log("Datos del pronóstico:", clima.value.forecast);
     })

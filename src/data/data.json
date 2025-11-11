@@ -128,7 +128,7 @@
       { 
         "precaucion": "Usar calzado impermeable", 
         "texto": "Mantiene los pies secos y evita resfríos", 
-        "img": "/img/botas.png" 
+        "img": "/img/botasLluvia.png"
       },
       { 
         "precaucion": "Llevar paraguas o piloto", 

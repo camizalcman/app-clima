@@ -4,6 +4,7 @@ const props = defineProps({
   clima:Object
 })
 
+
 </script>
 
 <template>
