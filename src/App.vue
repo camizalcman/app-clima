@@ -248,15 +248,15 @@ const fondoActual = computed(() => {
                   <img :src="clima.current.condition.icon" :alt="clima.current.condition.text" width="100" height="100" class="iconoClima">
                   <h1 class="tempActual">{{ clima.current.temp_c }}°C</h1>
                 </div>
-                  <p class="cambioMobile">Sensación térmica: {{ clima.current.feelslike_c }} °C</p>
+                  <p class="cambioMobile" :class="{ 'textoRojo': clima.current.feelslike_c>30}">Sensación térmica: {{ clima.current.feelslike_c }} °C</p>
                   <p class="cambioMobile">{{ clima.current.condition.text }}</p>
               </div>
 
               <div class="info">
                 <p><font-awesome-icon icon="fa-solid fa-droplet" class="icon"/>Humedad: {{ clima.current.humidity }}%</p>
-                <p><font-awesome-icon icon="fa-solid fa-wind" class="icon"/>Viento: {{ clima.current.wind_kph }} km/h</p>
+                <p :class="{ 'textoMov': clima.current.wind_kph>10}"><font-awesome-icon icon="fa-solid fa-wind" class="icon" />Viento: {{ clima.current.wind_kph }} km/h</p>
                 <p><font-awesome-icon icon="fa-solid fa-cloud-rain" class="icon"/>Precipitación: {{ clima.current.precip_mm }} mm</p>
-                <p><font-awesome-icon icon="fa-solid fa-sun" class="icon"/>UV: {{ clima.current.uv }} mm</p>
+                <p><font-awesome-icon icon="fa-solid fa-sun" class="icon" :class="{ 'iconoRotate': clima.current.uv>5}"/>UV: {{ clima.current.uv }} mm</p>
               </div>
 
               </div>    

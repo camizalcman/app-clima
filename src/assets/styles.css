@@ -100,10 +100,49 @@
 
 @keyframes scale {
   0%   { transform: scale(1); filter: saturate(1);}
-  50%  { transform: scale(1.3); filter: saturate(2) ;}
+  50%  { transform: scale(1.2); filter: saturate(2) ;}
   100% { transform: scale(1); filter: saturate(1) ;}
 }
 
+.iconoRotate {
+  animation: rotate 3s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  0%   { transform: rotate(0deg); filter: saturate(1); }
+  50%  { filter: saturate(2) }
+  100% { transform: rotate(360deg); filter: saturate(1); }
+}
+
+.iconoSubeBaja {
+  animation: subeBaja 3s ease-in-out infinite;
+}
+
+@keyframes subeBaja {
+  0%   { transform: translateY(1); filter: saturate(1); }
+  50%  { transform: translateY(5px); filter: saturate(2) }
+  100% { transform: translateY(1); filter: saturate(1); }
+}
+
+.textoMov {
+  animation: textoMov 3s ease-in-out infinite;
+}
+
+@keyframes textoMov {
+  0%   { transform: translateX(1)}
+  50%  { transform: translateX(15px)}
+  100% { transform: translateX(1)}
+}
+
+.textoRojo {
+  animation: textoRojo 3s ease-in-out infinite;
+}
+
+@keyframes textoRojo {
+  0%   { color: rgb(0, 0, 0); }
+  50%  { color: rgb(209, 0, 0); }
+  100% { color: rgb(0, 0, 0); }
+}
 /* Computadora chica */
 @media (max-width: 1500px){
    .textoItem{

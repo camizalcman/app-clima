@@ -11,8 +11,8 @@ const props = defineProps({
    <div v-if="clima && clima.forecast" class="contenedorHoras df">
       <div v-for="(item, index) in clima.forecast.horaPorHora" :key="index" class="hora">
         <p>{{ item.hora }}</p>
-        <div><img :src="item.icon" width="30" height="30" :class="{ 'iconoScale': item.temp > 25 }" /></div>
-        <p class="temp">{{ item.temp }}°C</p>
+        <div><img :src="item.icon" width="30" height="30" :class="{ 'iconoRotate': item.icon.includes('day/113.png') && item.temp > 25, 'iconoScale': item.temp < 5, 'iconoSubeBaja': item.icon.includes('176.png')}" /></div>
+        <p class="temp">{{ item.temp }}°C</p>        
       </div>
     </div>
     <div v-else>
