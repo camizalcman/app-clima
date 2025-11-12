@@ -44,7 +44,10 @@ function iniciarApp(){
       
       obtenerClima(latitude, longitude).then(data => {
         clima.value = data;
-        cargando.value = false;
+        
+        setTimeout(() => {
+          cargando.value = false;
+        }, 2500);
       });//llamo a la función con coordenadas
     },
 
@@ -131,7 +134,7 @@ const fondoActual = computed(() => {
 
   <div v-if="cargando" class="pantallaCarga">
     <p>Cargando clima...</p>
-    <img src="/img/mundo.svg" class="planeta" />
+    <img src="/img/mundo.png" class="planeta" />
   </div>
   
    <div v-else class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(29,29,29,0.25)', backgroundBlendMode:'multiply' }">
@@ -311,10 +314,12 @@ const fondoActual = computed(() => {
   background-size: cover;
   background-position: center;
   height: 100vh;
+  overflow: hidden;
 }
 
 .planeta {
   animation: girar 8s linear infinite;
+  width: 100%;
 }
 
 @keyframes girar {
