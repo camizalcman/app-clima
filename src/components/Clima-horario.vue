@@ -1,14 +1,62 @@
 <script setup>
+//Import
+import { ref, computed } from 'vue';
+
 //PROPS
 const props = defineProps({
   clima:Object
 })
 
+//Estado del carrusel
+const inicio = ref(0);
+const cantidadVisible = 4;
 
+const itemsVisibles = computed(() => {
+  const horas = props.clima?.forecast?.horaPorHora || [];
+  return horas.slice(inicio.value, inicio.value + cantidadVisible);
+});
+
+const totalHoras = computed(() => props.clima?.forecast?.horaPorHora?.length || 0);
+
+//Botones
+const siguiente = () => {
+  if (inicio.value + cantidadVisible < totalHoras.value) {
+    inicio.value += cantidadVisible; //avanza la cantidad de posiciones que se están mostrando 
+  } else {
+    //Si llego al final vuelvo al inicio
+    inicio.value = 0
+  }
+};
+
+const anterior = () => {
+  if (inicio.value - cantidadVisible >= 0) {
+    inicio.value -= cantidadVisible;
+  } else {
+    inicio.value = Math.max(totalHoras.value - cantidadVisible, 0);
+  }
+};
 </script>
 
 <template>
-   <div v-if="clima && clima.forecast" class="contenedorHoras df">
+
+    <!--Armado con galería solo para mobile-->
+    <div class="galeria displayNone displayM">
+        <button class="boton" @click="anterior"><font-awesome-icon icon="fa-solid fa-chevron-left" class="iconoBoton"/></button>
+          <div v-if="clima && clima.forecast" class="contenedorHoras df">
+            <div v-for="(item, index) in itemsVisibles" :key="index" class="hora">
+              <p>{{ item.hora }}</p>
+              <div><img :src="item.icon" width="30" height="30" :class="{ 'iconoRotate': item.icon.includes('day/113.png') && item.temp > 25, 'iconoScale': item.temp < 5, 'iconoSubeBaja': item.icon.includes('176.png')}" /></div>
+              <p class="temp">{{ item.temp }}°C</p>        
+            </div>
+          </div>
+          <div v-else>
+            <p>Cargando pronóstico...</p>
+          </div>
+        <button class="boton" @click="siguiente"><font-awesome-icon icon="fa-solid fa-chevron-right" class="iconoBoton"/></button>
+    </div>
+
+    <!--Sin galería para tablet y desktop-->
+   <div v-if="clima && clima.forecast" class="contenedorHoras df displayNoneM">
       <div v-for="(item, index) in clima.forecast.horaPorHora" :key="index" class="hora">
         <p>{{ item.hora }}</p>
         <div><img :src="item.icon" width="30" height="30" :class="{ 'iconoRotate': item.icon.includes('day/113.png') && item.temp > 25, 'iconoScale': item.temp < 5, 'iconoSubeBaja': item.icon.includes('176.png')}" /></div>
@@ -26,6 +74,9 @@ const props = defineProps({
   margin-top: 1.5em;
 }*/
 
+.displayNone{
+  display: none;
+}
 .contenedorHoras {
   display: grid;
   gap: 0.6em;
@@ -84,6 +135,12 @@ p{
   }
   .hora{
     padding: 0.2em 0;
+  }
+  .displayNoneM{
+    display: none;
+  }
+  .displayM{
+    display: flex;
   }
 }
 </style>

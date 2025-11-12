@@ -45,15 +45,16 @@ button{
    position: absolute;
   right: 0.8em;
     transform: translateY(-60%);
-
   border: none;
   background: none;
   color:rgb(53, 53, 53);
   cursor: pointer;
   font-size: 1em;
+    transition: all 0.3s ease;
 }
 
 .ingresarUbi button:hover {
   color: black;
+  transform: scale(1.1) translateY(-60%);
 }
 </style>
