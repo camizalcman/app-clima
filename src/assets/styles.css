@@ -145,6 +145,16 @@
   100% { transform: translateX(1)}
 }
 
+.viento {
+  animation: estirarse 1.5s ease-in-out infinite;
+}
+
+@keyframes estirarse {
+  0% { transform: scaleX(1); opacity: 1; }
+  50% { transform: scaleX(1.4); opacity: 0.7; color: rgb(26, 19, 142);}
+  100% { transform: scaleX(1); opacity: 1; }
+}
+
 .textoRojo {
   animation: textoRojo 3s ease-in-out infinite;
 }

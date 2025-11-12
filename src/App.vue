@@ -19,6 +19,8 @@ import Precauciones from "./components/Precauciones.vue";
 
 import './assets/styles.css'
 
+const cargando = ref(true);
+
 //para actualizar la fecha constantemente
 const fechaActual = ref(new Date())
 
@@ -30,32 +32,47 @@ onMounted(() => {
 
 const clima = ref(null);
 
-//Intentamos obtener la ubicación actual del usuario usando la API de geolocalización del navegador
-navigator.geolocation.getCurrentPosition(
-  
-  //Se ejecuta si el usuario permite compartir su ubicación
-  (position) => {
-    const { latitude, longitude, accuracy } = position.coords;
+function iniciarApp(){
+  cargando.value = true;
+
+  //Intentamos obtener la ubicación actual del usuario usando la API de geolocalización del navegador
+  navigator.geolocation.getCurrentPosition(
     
-    obtenerClima(latitude, longitude).then(data => {
-      clima.value = data
-    });//llamo a la función con coordenadas
-  },
+    //Se ejecuta si el usuario permite compartir su ubicación
+    (position) => {
+      const { latitude, longitude, accuracy } = position.coords;
+      
+      obtenerClima(latitude, longitude).then(data => {
+        clima.value = data;
+        cargando.value = false;
+      });//llamo a la función con coordenadas
+    },
 
-  //Se ejecuta si hay un error o el usuario no permite compartir ubicación
-  (error) => {
-    console.error("No se pudo obtener la ubicación:", error);
+    //Se ejecuta si hay un error o el usuario no permite compartir ubicación
+    (error) => {
+      console.error("No se pudo obtener la ubicación:", error);
 
-    obtenerClima().then(data => {
-      clima.value = data
-    }); // llamo a la función sin coordenadas y usa la ciudad por defecto
-  },
-  {
-    enableHighAccuracy: true, //usa GPS si está disponible
-    timeout: 10000,           //espera máximo 10 segundos
-    maximumAge: 0             //no usar posición vieja en caché
-  }
-);
+      obtenerClima().then(data => {
+        clima.value = data;
+        cargando.value = false;
+      }); // llamo a la función sin coordenadas y usa la ciudad por defecto
+    },
+    {
+      enableHighAccuracy: true, //usa GPS si está disponible
+      timeout: 10000,           //espera máximo 10 segundos
+      maximumAge: 0             //no usar posición vieja en caché
+    }
+  );
+}
+
+onMounted(() => {
+  setInterval(() => {
+    fechaActual.value = new Date();
+  }, 1000);
+
+  iniciarApp();
+});
+
 
 //Búsqueda de clima por input
 function busquedaClimaInput(ciudad) {
@@ -111,7 +128,12 @@ const fondoActual = computed(() => {
 </script>
 
 <template>
-  <div class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(29,29,29,0.25)', backgroundBlendMode:'multiply' }">
+
+  <div v-if="cargando" class="pantalla-carga">
+    <p>Cargando clima...</p>
+  </div>
+  
+   <div v-else class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(29,29,29,0.25)', backgroundBlendMode:'multiply' }">
     <div class="grid-layout">
       
       <div class="item1 estilo-item">
@@ -147,19 +169,15 @@ const fondoActual = computed(() => {
 
               <div class="info">
                 <p><font-awesome-icon icon="fa-solid fa-droplet" class="icon" :class="{ 'lluvia': clima.current.humidity>70}"/>Humedad: {{ clima.current.humidity }}%</p>
-                <p :class="{ 'textoMov': clima.current.wind_kph>15}"><font-awesome-icon icon="fa-solid fa-wind" class="icon" />Viento: {{ clima.current.wind_kph }} km/h</p>
+                <p :class="{ 'textoMov': clima.current.wind_kph>15}"><font-awesome-icon icon="fa-solid fa-wind" class="icon" :class="{ 'viento': clima.current.wind_kph>15}" />Viento: {{ clima.current.wind_kph }} km/h</p>
                 <p><font-awesome-icon icon="fa-solid fa-cloud-rain" class="icon" :class="{ 'lluvia': clima.current.precip_mm >0}"/>Precipitación: {{ clima.current.precip_mm }} mm</p>
                 <p><font-awesome-icon icon="fa-solid fa-sun" class="icon" :class="{ 'iconoUV': clima.current.uv>5}"/>UV: {{ clima.current.uv }} mm</p>
               </div>
 
               </div>    
                 <div class="horarios"><climaHorario :clima="clima" /></div>
-              </div>
-            
-          <div v-else>
-            <img src="/src/assets/img/sol.png" alt="sol" width="40" height="40">
-            <p>Cargando clima...</p>
-          </div>
+              </div>  
+
         </div>
       </div>
 
