@@ -129,8 +129,9 @@ const fondoActual = computed(() => {
 
 <template>
 
-  <div v-if="cargando" class="pantalla-carga">
+  <div v-if="cargando" class="pantallaCarga">
     <p>Cargando clima...</p>
+    <img src="/img/mundo.svg" class="planeta" />
   </div>
   
    <div v-else class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(29,29,29,0.25)', backgroundBlendMode:'multiply' }">
@@ -305,6 +306,21 @@ const fondoActual = computed(() => {
   flex: 1;
 }
 
+.pantallaCarga{
+  background-image: url("/img/espacio.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.planeta {
+  animation: girar 8s linear infinite;
+}
+
+@keyframes girar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 
 /* Tablet */
 @media (max-width: 1023px) {
