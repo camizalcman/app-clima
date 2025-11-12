@@ -6,6 +6,7 @@ import Actividades from './components/Actividades.vue'
 import PronosticoDiario from "./components/Pronostico-diario.vue";
 import climaHorario from "./components/Clima-horario.vue";
 import InputUbi from "./components/InputUbi.vue";
+import { obtenerClima } from '@/utils/funciones.js'
 
 import frio from '@/assets/img/frio.jpg'
 import frioMedio from '@/assets/img/frioMedio.jpg'
@@ -27,121 +28,7 @@ onMounted(() => {
   }, 1000) 
 })
 
-
-
 const clima = ref(null);
-
-const errorMsg = ref("");
-
-const myAPIKey = "8ba418c512314911b0a200932251210";
-
-//Función para obtener clima
-function obtenerClima(lat = null, lon = null, ciudad=null){
-
-  //armo la URL para llamar a current.json
-  const climaURL = new URL("https://api.weatherapi.com/v1/current.json");
-  
-  //parámetros
-  climaURL.searchParams.append("key", myAPIKey);    
-  climaURL.searchParams.append("lang", "es");
-
-  //Si están las coordenadas coordenadas, uso lat y lon, sino uso la ciudad por defecto
-  if (lat !== null && lon !== null) {
-    climaURL.searchParams.append("q", `${lat},${lon}`);
-  } else if (ciudad){
-    climaURL.searchParams.append("q", ciudad);
-  } else {
-    climaURL.searchParams.append("q", "Buenos Aires");
-  }
-
-  //Configuracion de la request
-  const myHeaders = {
-      "Authorization": myAPIKey, //envio la clave de autorización
-      "Content-Type": "application/json", //declaro el tipo de contenido
-      "Accept": "application/json" //declaro el tipo de contenido que acepto en la respuesta
-  }
-
-  const myRequestParams = {
-    method: "GET",
-    headers: myHeaders
-  };
-
-  fetch(climaURL, myRequestParams)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`Error HTTP: ${response.status} ${response.statusText}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log("Datos del clima actual:", data);
-
-    clima.value = data; // guardo los datos en la variable reactiva
-
-    //SEGUNDA LLAMADA - FORECAST.JSON
-    const forecastURL = new URL("https://api.weatherapi.com/v1/forecast.json");
-
-    forecastURL.searchParams.append("key", myAPIKey);
-    forecastURL.searchParams.append("lang", "es");
-    forecastURL.searchParams.append("days", 6);
-    forecastURL.searchParams.append("aqi", "no");
-    forecastURL.searchParams.append("alerts", "no");
-
-    if (lat !== null && lon !== null) {
-      forecastURL.searchParams.append("q", `${lat},${lon}`);
-    } else if (ciudad) {
-      forecastURL.searchParams.append("q", ciudad);
-    } else {
-      forecastURL.searchParams.append("q", "Buenos Aires");
-    }
-    return fetch(forecastURL, myRequestParams)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`Error HTTP: ${res.status} ${res.statusText}`);
-        }
-        return res.json();
-      })
-      .then(forecastData => {
-        //Informacion de temp por hora
-        const hoyHoras = forecastData.forecast.forecastday[0].hour
-        .map(h => ({
-          hora: h.time.split(" ")[1],
-          temp: h.temp_c,
-          icon: h.condition.icon
-        }))
-           .filter((_, i) => i % 2 === 0);
-        
-        //Informacion de temp próximos días
-        const pronosticoDias = forecastData.forecast.forecastday
-        .slice(0, 5) 
-        .map(d => ({
-            dia: new Date(d.date).toLocaleDateString('es-AR', { weekday: 'long' }),
-            icon: d.day.condition.icon,
-            descripcion: d.day.condition.text,
-            tempMax: d.day.maxtemp_c,
-            tempMin: d.day.mintemp_c
-        }));
-
-        clima.value = {
-          ...data, // datos del clima actual
-          forecast: {
-            horaPorHora: hoyHoras,
-            pronostico: pronosticoDias
-          }
-        };
-        /*clima.value.forecast = {
-          horaPorHora: hoyHoras,
-          pronostico: pronosticoDias
-        };*/
-
-        console.log("Datos del pronóstico:", clima.value.forecast);
-    })
-
-  .catch(error => {
-    console.error("Ocurrió un error:", error);
-    errorMsg.value = "No se pudo obtener el clima";
-  });
-})}
 
 //Intentamos obtener la ubicación actual del usuario usando la API de geolocalización del navegador
 navigator.geolocation.getCurrentPosition(
@@ -150,14 +37,18 @@ navigator.geolocation.getCurrentPosition(
   (position) => {
     const { latitude, longitude, accuracy } = position.coords;
     
-    obtenerClima(latitude, longitude);//llamo a la función con coordenadas
+    obtenerClima(latitude, longitude).then(data => {
+      clima.value = data
+    });//llamo a la función con coordenadas
   },
 
   //Se ejecuta si hay un error o el usuario no permite compartir ubicación
   (error) => {
     console.error("No se pudo obtener la ubicación:", error);
 
-    obtenerClima(); // llamo a la función sin coordenadas y usa la ciudad por defecto
+    obtenerClima().then(data => {
+      clima.value = data
+    }); // llamo a la función sin coordenadas y usa la ciudad por defecto
   },
   {
     enableHighAccuracy: true, //usa GPS si está disponible
@@ -168,7 +59,9 @@ navigator.geolocation.getCurrentPosition(
 
 //Búsqueda de clima por input
 function busquedaClimaInput(ciudad) {
-  obtenerClima(null, null, ciudad)
+  obtenerClima(null, null, ciudad).then(data => {
+    clima.value = data
+  })
 }
 
 const fondoManual = ref(null) //para cambiar desde la consola
@@ -230,14 +123,14 @@ const fondoActual = computed(() => {
                 
                <p class="fecha">
                 {{
-                  new Date().toLocaleDateString('es-AR', {
+                   new Date(clima.location.localtime).toLocaleDateString('es-AR', {
                     weekday: 'long',
                     day: 'numeric',
                     month: 'long'
                   })
                 }},
                 {{
-                  new Date().toLocaleTimeString('es-AR', {
+                  new Date(clima.location.localtime).toLocaleTimeString('es-AR', {
                     hour: '2-digit',
                     minute: '2-digit'
                   })
@@ -253,10 +146,10 @@ const fondoActual = computed(() => {
               </div>
 
               <div class="info">
-                <p><font-awesome-icon icon="fa-solid fa-droplet" class="icon"/>Humedad: {{ clima.current.humidity }}%</p>
-                <p :class="{ 'textoMov': clima.current.wind_kph>10}"><font-awesome-icon icon="fa-solid fa-wind" class="icon" />Viento: {{ clima.current.wind_kph }} km/h</p>
-                <p><font-awesome-icon icon="fa-solid fa-cloud-rain" class="icon"/>Precipitación: {{ clima.current.precip_mm }} mm</p>
-                <p><font-awesome-icon icon="fa-solid fa-sun" class="icon" :class="{ 'iconoRotate': clima.current.uv>5}"/>UV: {{ clima.current.uv }} mm</p>
+                <p><font-awesome-icon icon="fa-solid fa-droplet" class="icon" :class="{ 'lluvia': clima.current.humidity>70}"/>Humedad: {{ clima.current.humidity }}%</p>
+                <p :class="{ 'textoMov': clima.current.wind_kph>15}"><font-awesome-icon icon="fa-solid fa-wind" class="icon" />Viento: {{ clima.current.wind_kph }} km/h</p>
+                <p><font-awesome-icon icon="fa-solid fa-cloud-rain" class="icon" :class="{ 'lluvia': clima.current.precip_mm >0}"/>Precipitación: {{ clima.current.precip_mm }} mm</p>
+                <p><font-awesome-icon icon="fa-solid fa-sun" class="icon" :class="{ 'iconoUV': clima.current.uv>5}"/>UV: {{ clima.current.uv }} mm</p>
               </div>
 
               </div>    
