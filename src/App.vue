@@ -536,7 +536,7 @@ const fondoActual = computed(() => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-top: 22em;
+    margin-top: 30em;
   }
 }
 </style>
