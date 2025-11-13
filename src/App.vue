@@ -159,7 +159,7 @@ const fondoActual = computed(() => {
 <template>
 
   <div v-if="cargando" class="pantallaCarga">
-    <img src="/img/mundo.webp" class="planeta" />
+    <img src="/img/mundo.webp" class="planeta displayNoneT" />
     <div class="overlay">
       <p class="tituloCarga">Buscando clima</p>
        <circles-to-rhombuses-spinner
@@ -483,12 +483,7 @@ const fondoActual = computed(() => {
   .displayNoneT{
     display: none;
   }
-  .planeta {
-    align-items: center;
-    justify-content: center;
-    width: 110%;
-    margin-top: 25em;
-  }
+
 }
 
 /* Mobile */
@@ -531,12 +526,6 @@ const fondoActual = computed(() => {
   }
   .horarios{
     margin-top: 0em;
-  }
-  .planeta {
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 35em;
   }
 }
 </style>
