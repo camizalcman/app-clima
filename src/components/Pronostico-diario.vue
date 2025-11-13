@@ -1,5 +1,4 @@
 <script setup>
-
 //PROPS
 const props = defineProps({
   clima:Object
@@ -22,6 +21,7 @@ const props = defineProps({
       <p>Cargando pronóstico...</p>
     </div>
 </template>
+
 <style scoped>
 .contPronostico{
   display: flex;
@@ -56,16 +56,6 @@ const props = defineProps({
   padding-left: 1em;
   position: relative;
 }
-
-/*.temp::before {
-  content: "";             
-  height: 90%;            
-  width: 2px;              
-  background-color: rgb(29, 29, 29);
-  position: absolute;
-  left: 0;               
-  top: 0;
-}*/
 .dia{
   font-weight: bold;
   text-transform: capitalize;

@@ -79,8 +79,8 @@ export async function obtenerClima(lat = null, lon = null, ciudad=null){
         }))
            .filter((_, i) => i % 2 === 0);
         
-        /*
 
+        /*Llamada a la misma API (no se puede acceder a estos datos completos gratuitamente, por eso utilice luego otra API)
         //Informacion de temp próximos días
         const pronosticoDias = forecastData.forecast.forecastday
         .slice(0, 5) 
@@ -100,8 +100,8 @@ export async function obtenerClima(lat = null, lon = null, ciudad=null){
           }
         };*/
 
-          //TERCERA LLAMADA: pronóstico próximos días (Open-Meteo)
-          const latFinal = lat ?? forecastData.location.lat;
+          //TERCERA LLAMADA: pronóstico próximos días (API Open-Meteo)
+          const latFinal = lat ?? forecastData.location.lat; //si lat es null o undefined usa forecastData.location.lat
           const lonFinal = lon ?? forecastData.location.lon;
 
           const openMeteoURL = new URL("https://api.open-meteo.com/v1/forecast");
@@ -112,10 +112,12 @@ export async function obtenerClima(lat = null, lon = null, ciudad=null){
 
           return fetch(openMeteoURL)
             .then(r => {
+              //manejo de errores
               if (!r.ok) throw new Error(`Error HTTP Open-Meteo: ${r.status}`);
               return r.json();
             })
             
+            //manejo la informacion
             .then(openData => {
               const pronosticoDias = openData.daily.time.map((fecha, i) => ({
                 dia: new Date(fecha).toLocaleDateString("es-AR", { weekday: "long" }),
@@ -132,9 +134,6 @@ export async function obtenerClima(lat = null, lon = null, ciudad=null){
                   pronostico: pronosticoDias.slice(2, 6)
                 }
               };
-
-              //HASTA ACA AGREGUE
-
 
         console.log("Datos del pronóstico:", resultado.forecast);
         return resultado;

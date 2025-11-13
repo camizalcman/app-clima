@@ -13,6 +13,8 @@ const cantidadVisible = 4;
 
 const itemsVisibles = computed(() => {
   const horas = props.clima?.forecast?.horaPorHora || [];
+  //si props.clima.forecast.horaPorHora no existe, usá un array vacío
+
   return horas.slice(inicio.value, inicio.value + cantidadVisible);
 });
 
@@ -68,12 +70,6 @@ const anterior = () => {
     </div>
 </template>
 <style scoped>
-/*.contenedorHoras{
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 1.5em;
-}*/
-
 .displayNone{
   display: none;
 }

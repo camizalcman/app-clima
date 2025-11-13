@@ -13,7 +13,7 @@ const procesarLista = (lista) => {
   }))
 }
 
-// Precauciones por clima
+//Precauciones por clima
 const precFrio = procesarLista(data.precaucionesPorClima.frio)
 const precTemplado = procesarLista(data.precaucionesPorClima.templado)
 const precCalor = procesarLista(data.precaucionesPorClima.calor)

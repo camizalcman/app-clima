@@ -13,7 +13,7 @@ const procesarLista = (lista) => {
   }))
 }
 
-// Actividades por clima
+//Actividades por clima
 const actFrio = procesarLista(data.actividadesPorClima.frio)
 const actTemplado = procesarLista(data.actividadesPorClima.templado)
 const actCalor = procesarLista(data.actividadesPorClima.calor)

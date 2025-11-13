@@ -12,7 +12,7 @@ const procesarLista = (lista) => {
   }))
 }
 
-// Ropa por clima
+//Ropa por clima
 const ropaFrio = procesarLista(data.ropaPorClima.frio)
 const ropaTemplado = procesarLista(data.ropaPorClima.templado)
 const ropaCalor = procesarLista(data.ropaPorClima.calor)
@@ -22,8 +22,6 @@ const ropaLluvia = procesarLista(data.ropaPorClima.lluvia)
 const props = defineProps({
   clima:Object
 })
-
-
 
 //computed para definir la vestimenta a mostrar
 const ropaActual = computed(()=>{

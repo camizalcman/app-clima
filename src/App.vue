@@ -19,11 +19,11 @@ import Precauciones from "./components/Precauciones.vue";
 
 import './assets/styles.css'
 
-
 import { CirclesToRhombusesSpinner } from 'epic-spinners'
 
-
+//para definir si muestro o no la pantalla de carga
 const cargando = ref(true);
+
 
 //para actualizar la fecha constantemente
 const fechaActual = ref(new Date())
@@ -37,6 +37,7 @@ onMounted(() => {
 const clima = ref(null);
 
 function iniciarApp(){
+  //muestro la pantalla de carga
   cargando.value = true;
 
   //Intentamos obtener la ubicación actual del usuario usando la API de geolocalización del navegador
@@ -46,23 +47,26 @@ function iniciarApp(){
     (position) => {
       const { latitude, longitude, accuracy } = position.coords;
       
+      //llamo a la función con coordenadas
       obtenerClima(latitude, longitude).then(data => {
         clima.value = data;
         
         setTimeout(() => {
+          //saco la pantalla de carga
           cargando.value = false;
         }, 2000);
-      });//llamo a la función con coordenadas
+      });
     },
 
     //Se ejecuta si hay un error o el usuario no permite compartir ubicación
     (error) => {
       console.error("No se pudo obtener la ubicación:", error);
 
+      //llamo a la función sin coordenadas y usa la ciudad por defecto
       obtenerClima().then(data => {
         clima.value = data;
-        cargando.value = false;
-      }); // llamo a la función sin coordenadas y usa la ciudad por defecto
+        cargando.value = false;//saco la pantalla de carga
+      }); 
     },
     {
       enableHighAccuracy: true, //usa GPS si está disponible
@@ -77,14 +81,17 @@ onMounted(() => {
     fechaActual.value = new Date();
   }, 1000);
 
+  //llamo a la funcion que inicializa la app
   iniciarApp();
 });
 
+//modal para mostrar error al no encontrar ciudad
 const mostrarError = ref(false)
 
 //Búsqueda de clima por input
 function busquedaClimaInput(ciudad) {
   cargando.value = true;
+
   obtenerClima(null, null, ciudad)
     .then(data => {
       clima.value = data
@@ -98,6 +105,7 @@ function busquedaClimaInput(ciudad) {
     })
 }
 
+//cerrar el modal
 function cerrarModal() {
   mostrarError.value = false
 }
@@ -112,7 +120,7 @@ window.noche = noche
 window.lluvia = lluvia
 window.nocheLluvia = nocheLluvia
 
-//Selección de fondos
+//Selección de fondos segun clima u horario
 const fondoActual = computed(() => {
   if (fondoManual.value) return fondoManual.value
   if (!clima.value) return soleado
