@@ -1,3 +1,6 @@
+import descripciones from "@/data/dataApi.json";
+import iconos from "@/data/dataIconos.json";
+
 export async function obtenerClima(lat = null, lon = null, ciudad=null){
 
   const myAPIKey = "8ba418c512314911b0a200932251210";
@@ -42,6 +45,7 @@ export async function obtenerClima(lat = null, lon = null, ciudad=null){
 
     const climaActual = data; // guardo los datos en la variable reactiva
 
+    
     //SEGUNDA LLAMADA - FORECAST.JSON
     const forecastURL = new URL("https://api.weatherapi.com/v1/forecast.json");
 
@@ -75,6 +79,8 @@ export async function obtenerClima(lat = null, lon = null, ciudad=null){
         }))
            .filter((_, i) => i % 2 === 0);
         
+        /*
+
         //Informacion de temp próximos días
         const pronosticoDias = forecastData.forecast.forecastday
         .slice(0, 5) 
@@ -92,14 +98,54 @@ export async function obtenerClima(lat = null, lon = null, ciudad=null){
             horaPorHora: hoyHoras,
             pronostico: pronosticoDias
           }
-        };
+        };*/
+
+          //TERCERA LLAMADA: pronóstico próximos días (Open-Meteo)
+          const latFinal = lat ?? forecastData.location.lat;
+          const lonFinal = lon ?? forecastData.location.lon;
+
+          const openMeteoURL = new URL("https://api.open-meteo.com/v1/forecast");
+          openMeteoURL.searchParams.append("latitude", latFinal);
+          openMeteoURL.searchParams.append("longitude", lonFinal);
+          openMeteoURL.searchParams.append("daily", "temperature_2m_max,temperature_2m_min,weathercode");
+          openMeteoURL.searchParams.append("timezone", "auto");
+
+          return fetch(openMeteoURL)
+            .then(r => {
+              if (!r.ok) throw new Error(`Error HTTP Open-Meteo: ${r.status}`);
+              return r.json();
+            })
+            
+            .then(openData => {
+              const pronosticoDias = openData.daily.time.map((fecha, i) => ({
+                dia: new Date(fecha).toLocaleDateString("es-AR", { weekday: "long" }),
+                tempMax: openData.daily.temperature_2m_max[i],
+                tempMin: openData.daily.temperature_2m_min[i],
+                icon: iconos[openData.daily.weathercode[i]] || "//cdn.weatherapi.com/weather/64x64/day/113.png",
+                descripcion: descripciones[openData.daily.weathercode[i]] || "Sin datos",
+              }));
+
+              const resultado = {
+                ...climaActual,
+                forecast: {
+                  horaPorHora: hoyHoras,
+                  pronostico: pronosticoDias.slice(2, 6)
+                }
+              };
+
+              //HASTA ACA AGREGUE
+
 
         console.log("Datos del pronóstico:", resultado.forecast);
         return resultado;
     })
-
+  })
+  
   .catch(error => {
     console.error("Ocurrió un error:", error);
     throw new Error("No se pudo obtener el clima");
   });
+
 })}
+
+

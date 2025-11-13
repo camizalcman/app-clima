@@ -1,0 +1,20 @@
+{
+  "0": "//cdn.weatherapi.com/weather/64x64/day/113.png",
+  "1": "//cdn.weatherapi.com/weather/64x64/day/116.png",
+  "2": "//cdn.weatherapi.com/weather/64x64/day/119.png",
+  "3": "//cdn.weatherapi.com/weather/64x64/day/122.png",
+  "45": "//cdn.weatherapi.com/weather/64x64/day/143.png",
+  "48": "//cdn.weatherapi.com/weather/64x64/day/143.png",
+  "51": "//cdn.weatherapi.com/weather/64x64/day/266.png",
+  "53": "//cdn.weatherapi.com/weather/64x64/day/296.png",
+  "55": "//cdn.weatherapi.com/weather/64x64/day/302.png",
+  "61": "//cdn.weatherapi.com/weather/64x64/day/308.png",
+  "63": "//cdn.weatherapi.com/weather/64x64/day/308.png",
+  "65": "//cdn.weatherapi.com/weather/64x64/day/314.png",
+  "71": "//cdn.weatherapi.com/weather/64x64/day/326.png",
+  "73": "//cdn.weatherapi.com/weather/64x64/day/332.png",
+  "75": "//cdn.weatherapi.com/weather/64x64/day/338.png",
+  "95": "//cdn.weatherapi.com/weather/64x64/day/389.png",
+  "96": "//cdn.weatherapi.com/weather/64x64/day/389.png",
+  "99": "//cdn.weatherapi.com/weather/64x64/day/389.png"
+}

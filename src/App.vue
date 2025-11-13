@@ -80,12 +80,26 @@ onMounted(() => {
   iniciarApp();
 });
 
+const mostrarError = ref(false)
 
 //Búsqueda de clima por input
 function busquedaClimaInput(ciudad) {
-  obtenerClima(null, null, ciudad).then(data => {
-    clima.value = data
-  })
+  cargando.value = true;
+  obtenerClima(null, null, ciudad)
+    .then(data => {
+      clima.value = data
+    })
+    .catch(error => {
+      console.error("Error al buscar el clima:", error)
+      mostrarError.value = true
+    })
+    .finally(() => {
+      cargando.value = false
+    })
+}
+
+function cerrarModal() {
+  mostrarError.value = false
 }
 
 const fondoManual = ref(null) //para cambiar desde la consola
@@ -205,6 +219,15 @@ const fondoActual = computed(() => {
         <div class="item3 estilo-item"><Precauciones :clima="clima" /></div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- MODAL DE ERROR -->
+  <div v-if="mostrarError" class="modal">
+    <div class="contModal">
+      <p class="tituloModal">No se encontró la ciudad</p>
+      <p>Verificá el nombre e intentá nuevamente.</p>
+      <button @click="cerrarModal" class="botonModal">Cerrar</button>
     </div>
   </div>
 </template>
@@ -366,6 +389,44 @@ const fondoActual = computed(() => {
   font-weight: 600;
   font-family:"Plus Jakarta Sans", sans-serif;
   margin-bottom: 0.3em; 
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.contModal {
+  background: white;
+  color: black;
+  padding: 20px 30px;
+  border-radius: 12px;
+  text-align: left;
+  font-family:"Plus Jakarta Sans", sans-serif;
+}
+
+.tituloModal{
+  font-weight: 700;
+  font-size: 1.4em;
+}
+
+.botonModal {
+  margin-top: 2.5em;
+  padding: 0.6em 1.6em;
+  border: none;
+  border-radius: 6px;
+  background: #001b3a;
+  color: white;
+  cursor: pointer;
+}
+
+.botonModal:hover {
+  background: #093f7e;
 }
 
 /* Tablet */
