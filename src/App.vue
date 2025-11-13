@@ -8,13 +8,13 @@ import climaHorario from "./components/Clima-horario.vue";
 import InputUbi from "./components/InputUbi.vue";
 import { obtenerClima } from '@/utils/funciones.js'
 
-import frio from '@/assets/img/frio.jpg'
-import frioMedio from '@/assets/img/frioMedio.jpg'
-import templado from '@/assets/img/templado.jpg'
-import soleado from '@/assets/img/soleado.jpg'
-import lluvia from '@/assets/img/lluvia.jpg'
-import nocheLluvia from '@/assets/img/nocheLluvia.jpg'
-import noche from '@/assets/img/noche.jpg'
+import frio from '@/assets/img/frio.webp'
+import frioMedio from '@/assets/img/frioMedio.webp'
+import templado from '@/assets/img/templado.webp'
+import soleado from '@/assets/img/soleado.webp'
+import lluvia from '@/assets/img/lluvia.webp'
+import nocheLluvia from '@/assets/img/nocheLluvia.webp'
+import noche from '@/assets/img/noche.webp'
 import Precauciones from "./components/Precauciones.vue";
 
 import './assets/styles.css'
