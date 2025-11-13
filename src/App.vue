@@ -183,7 +183,7 @@ const fondoActual = computed(() => {
                   <p class="cambioMobile">{{ clima.current.condition.text }}</p>
               </div>
 
-              <div class="info">
+              <div class="info marginTop">
                 <p><font-awesome-icon icon="fa-solid fa-droplet" class="icon" :class="{ 'lluvia': clima.current.humidity>70}"/>Humedad: {{ clima.current.humidity }}%</p>
                 <p :class="{ 'textoMov': clima.current.wind_kph>15}"><font-awesome-icon icon="fa-solid fa-wind" class="icon" :class="{ 'viento': clima.current.wind_kph>15}" />Viento: {{ clima.current.wind_kph }} km/h</p>
                 <p><font-awesome-icon icon="fa-solid fa-cloud-rain" class="icon" :class="{ 'lluvia': clima.current.precip_mm >0}"/>Precipitación: {{ clima.current.precip_mm }} mm</p>
@@ -419,7 +419,7 @@ const fondoActual = computed(() => {
 /* Mobile */
 @media (max-width: 767px){
   .tempActual{
-    font-size: 2.5em;
+    font-size: 3em;
     font-weight: 500;
   }
   .iconoClima{
@@ -450,6 +450,9 @@ const fondoActual = computed(() => {
   }
   .contClima{
     flex-direction: column;
+  }
+  .marginTop{
+    margin-top: 0.5em;
   }
 }
 </style>
