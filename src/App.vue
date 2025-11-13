@@ -51,7 +51,7 @@ function iniciarApp(){
         
         setTimeout(() => {
           cargando.value = false;
-        }, 2500);
+        }, 2000);
       });//llamo a la función con coordenadas
     },
 
@@ -447,6 +447,9 @@ const fondoActual = computed(() => {
     font-weight: 600;
     font-family:"Plus Jakarta Sans", sans-serif;
     margin-bottom: 0.3em; 
+  }
+  .contClima{
+    flex-direction: column;
   }
 }
 </style>
