@@ -323,17 +323,22 @@ const fondoActual = computed(() => {
 
 .pantallaCarga{
   background-image: url("/img/espacio.webp");
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  overflow: hidden;
   position: fixed;
   inset: 0;
+  height: 100vh;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
 }
 
 .planeta {
-  animation: girar 8s linear infinite;
   width: 100%;
+  height: auto;
+  animation: girar 8s linear infinite;
+
 }
 
 @keyframes girar {
@@ -397,6 +402,14 @@ const fondoActual = computed(() => {
   .item1{
     padding: 1.2em 0.6em;
   }
+
+  .tituloCarga{
+    color: white;
+    font-size: 2.2em;
+    font-weight: 600;
+    font-family:"Plus Jakarta Sans", sans-serif;
+    margin-bottom: 0.3em; 
+  }
 }
 
 /* Mobile */
@@ -423,6 +436,13 @@ const fondoActual = computed(() => {
   }
   .iconoTemp{
     margin-bottom: 0.6em;
+  }
+  .tituloCarga{
+    color: white;
+    font-size: 1.8em;
+    font-weight: 600;
+    font-family:"Plus Jakarta Sans", sans-serif;
+    margin-bottom: 0.3em; 
   }
 }
 </style>
