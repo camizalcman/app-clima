@@ -137,7 +137,7 @@ const fondoActual = computed(() => {
 <template>
 
   <div v-if="cargando" class="pantallaCarga">
-    <img src="/img/mundo.webp" class="planeta" />
+    <img src="/img/mundo.webp" class="planeta displayNoneT" />
     <div class="overlay">
       <p class="tituloCarga">Buscando clima</p>
        <circles-to-rhombuses-spinner
@@ -410,6 +410,9 @@ const fondoActual = computed(() => {
     font-weight: 600;
     font-family:"Plus Jakarta Sans", sans-serif;
     margin-bottom: 0.3em; 
+  }
+  .displayNoneT{
+    display: none;
   }
 }
 
