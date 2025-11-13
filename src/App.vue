@@ -446,26 +446,10 @@ const fondoActual = computed(() => {
     margin-bottom: 0.3em; 
   }
 
-  .pantallaCarga{
-  position: relative; 
-  height: 100vh;
-  background-image: url("/img/espacio.webp");
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.planeta {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  animation: girar 8s linear infinite;
-  border: 2px solid red;
-}
+  .planeta {
+    transform:translateY(100px) ;
+    border: 2px solid red;
+  }
 }
 </style>
