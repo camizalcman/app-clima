@@ -448,8 +448,8 @@ const fondoActual = computed(() => {
 
 
   .planeta {
-    transform:translateY(100px) ;
-    border: 2px solid red;
+    transform:translateY(-300px) ;
+    border: 2px solid rgb(51, 0, 255);
   }
 }
 </style>
