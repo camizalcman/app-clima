@@ -445,11 +445,5 @@ const fondoActual = computed(() => {
     font-family:"Plus Jakarta Sans", sans-serif;
     margin-bottom: 0.3em; 
   }
-
-
-  .planeta {
-    transform:translateY(-300px) ;
-    border: 2px solid rgb(51, 0, 255);
-  }
 }
 </style>
