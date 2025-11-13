@@ -419,7 +419,7 @@ const fondoActual = computed(() => {
 /* Mobile */
 @media (max-width: 767px){
   .tempActual{
-    font-size: 3em;
+    font-size: 3.2em;
     font-weight: 500;
   }
   .iconoClima{
@@ -452,7 +452,7 @@ const fondoActual = computed(() => {
     flex-direction: column;
   }
   .marginTop{
-    margin-top: 0.5em;
+    margin-top: 0.8em;
   }
 }
 </style>
