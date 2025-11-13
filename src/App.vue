@@ -460,11 +460,12 @@ const fondoActual = computed(() => {
 
 .planeta {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: auto;
   animation: girar 8s linear infinite;
+  border: 2px solid red;
 }
 }
 </style>
