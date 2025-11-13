@@ -134,7 +134,7 @@ const fondoActual = computed(() => {
 
   <div v-if="cargando" class="pantallaCarga">
     <p>Cargando clima...</p>
-    <img src="/img/mundo.png" class="planeta" />
+    <img src="/img/mundo.webp" class="planeta" />
   </div>
   
    <div v-else class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(29,29,29,0.25)', backgroundBlendMode:'multiply' }">
@@ -310,16 +310,19 @@ const fondoActual = computed(() => {
 }
 
 .pantallaCarga{
-  background-image: url("/img/espacio.jpg");
+  background-image: url("/img/espacio.webp");
   background-size: cover;
   background-position: center;
   height: 100vh;
   overflow: hidden;
+  position: fixed;
+  inset: 0;
 }
 
 .planeta {
   animation: girar 8s linear infinite;
   width: 100%;
+  transform: translateY(50%);
 }
 
 @keyframes girar {
