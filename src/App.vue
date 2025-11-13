@@ -322,23 +322,24 @@ const fondoActual = computed(() => {
 }
 
 .pantallaCarga{
-  background-image: url("/img/espacio.webp");
-  position: fixed;
-  inset: 0;
+  position: relative; 
   height: 100vh;
-  overflow: hidden;
+  background-image: url("/img/espacio.webp");
   background-size: cover;
   background-position: center;
+  overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: flex-start; 
+  align-items: center;
 }
 
 .planeta {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: auto;
   animation: girar 8s linear infinite;
-
 }
 
 @keyframes girar {
