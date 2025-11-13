@@ -454,5 +454,8 @@ const fondoActual = computed(() => {
   .marginTop{
     margin-top: 0.8em;
   }
+  .horarios{
+    margin-top: 0em;
+  }
 }
 </style>
