@@ -445,5 +445,27 @@ const fondoActual = computed(() => {
     font-family:"Plus Jakarta Sans", sans-serif;
     margin-bottom: 0.3em; 
   }
+
+  .overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+  .planeta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  animation: girar 8s linear infinite;
+}
 }
 </style>
