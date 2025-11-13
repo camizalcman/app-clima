@@ -19,6 +19,10 @@ import Precauciones from "./components/Precauciones.vue";
 
 import './assets/styles.css'
 
+
+import { CirclesToRhombusesSpinner } from 'epic-spinners'
+
+
 const cargando = ref(true);
 
 //para actualizar la fecha constantemente
@@ -133,8 +137,16 @@ const fondoActual = computed(() => {
 <template>
 
   <div v-if="cargando" class="pantallaCarga">
-    <p>Cargando clima...</p>
     <img src="/img/mundo.webp" class="planeta" />
+    <div class="overlay">
+      <p class="tituloCarga">Buscando clima</p>
+       <circles-to-rhombuses-spinner
+        :animation-duration="1200"
+        :circles-num="3"
+        :circle-size="15"
+        color="#ffff"
+      />
+    </div>
   </div>
   
    <div v-else class="fondo" :style="{ backgroundImage: `url(${fondoActual})`, backgroundColor:'rgba(29,29,29,0.25)', backgroundBlendMode:'multiply' }">
@@ -322,12 +334,32 @@ const fondoActual = computed(() => {
 .planeta {
   animation: girar 8s linear infinite;
   width: 100%;
-  transform: translateY(50%);
 }
 
 @keyframes girar {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.tituloCarga{
+  color: white;
+  font-size: 2.8em;
+  font-weight: 600;
+  font-family:"Plus Jakarta Sans", sans-serif;
+  margin-bottom: 0.3em; 
 }
 
 /* Tablet */
