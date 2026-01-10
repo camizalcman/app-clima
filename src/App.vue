@@ -120,6 +120,7 @@ window.noche = noche
 window.lluvia = lluvia
 window.nocheLluvia = nocheLluvia
 
+
 //Selección de fondos segun clima u horario
 const fondoActual = computed(() => {
   if (fondoManual.value) return fondoManual.value
